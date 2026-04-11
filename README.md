@@ -1,3 +1,3 @@
-# grand-brew-delivery
+# Grand Brew Delivery
 
-Das Repo für das Godot Wild Jam Projekt innerhalb des Moduls Game Engineering
+Das Godot Spiel für den Godot Wild Jam #92
