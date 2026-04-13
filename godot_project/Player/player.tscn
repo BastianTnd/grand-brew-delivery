@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://b43n0r1ks3ath"]
+
+[ext_resource type="Script" uid="uid://cijv1s6b41qpo" path="res://Player/player.gd" id="1_4ntmi"]
+[ext_resource type="Texture2D" uid="uid://dhdug8ns3oiy2" path="res://Player/Sprites/car-truck4.png" id="2_btcbx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvfyp"]
+size = Vector2(29, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
+size = Vector2(29, 68)
+
+[node name="Player" type="CharacterBody2D" unique_id=282871353]
+script = ExtResource("1_4ntmi")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897074459]
+rotation = 1.5707964
+texture = ExtResource("2_btcbx")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1567269969]
+position = Vector2(0.5, 0.5)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_hvfyp")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=229678205]
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1171098915]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=300668999]
+position = Vector2(0.5, 1)
+rotation = 1.5707964
+shape = SubResource("RectangleShape2D_4ntmi")
