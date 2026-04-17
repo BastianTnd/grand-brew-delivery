@@ -1,3 +1,4 @@
+class_name Collectible
 extends Area2D
 
 @onready var collectible_sprite: Sprite2D = $Sprite2D
