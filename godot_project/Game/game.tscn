@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="5_fwxkx"]
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
+[ext_resource type="PackedScene" uid="uid://beg40xolu1jge" path="res://Collectible/collectible.tscn" id="6_qmv3x"]
 
 [node name="Game" type="Node2D" unique_id=916570660]
 
@@ -21,3 +22,6 @@ position = Vector2(-61, 404)
 
 [node name="CarRoutine" parent="." unique_id=1949011404 instance=ExtResource("5_qmv3x")]
 position = Vector2(84, 92)
+
+[node name="Collectible" parent="." unique_id=1851355729 instance=ExtResource("6_qmv3x")]
+position = Vector2(24, 197)
