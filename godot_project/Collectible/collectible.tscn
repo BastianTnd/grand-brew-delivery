@@ -2,10 +2,32 @@
 
 [ext_resource type="Script" uid="uid://cw6cufdnqouf3" path="res://Collectible/collectible.gd" id="1_pel21"]
 
+[sub_resource type="GDScript" id="GDScript_pel21"]
+script/source = "extends Sprite2D
+
+var malt = \"res://Collectible/Sprites/Malz_M.png\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float) -> void:
+	var collectible_area: Area2D = get_parent()
+	print(\"Test\", collectible_area)
+	
+func change_sprite() -> void:
+	pass
+"
+
 [sub_resource type="CircleShape2D" id="CircleShape2D_3bsdh"]
 
 [node name="Collectible" type="Area2D" unique_id=1851355729]
 script = ExtResource("1_pel21")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1990514737]
+script = SubResource("GDScript_pel21")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=766782013]
 shape = SubResource("CircleShape2D_3bsdh")

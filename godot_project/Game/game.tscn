@@ -10,7 +10,6 @@
 [node name="Game" type="Node2D" unique_id=916570660]
 
 [node name="Map" parent="." unique_id=1676787412 instance=ExtResource("1_1erje")]
-position = Vector2(1, 26)
 
 [node name="Player" parent="." unique_id=282871353 instance=ExtResource("2_m22wp")]
 
@@ -25,3 +24,11 @@ position = Vector2(84, 92)
 
 [node name="Collectible" parent="." unique_id=1851355729 instance=ExtResource("6_qmv3x")]
 position = Vector2(24, 197)
+
+[node name="Collectible2" parent="." unique_id=904601367 instance=ExtResource("6_qmv3x")]
+position = Vector2(214, 503)
+collectible = 1
+
+[node name="Collectible3" parent="." unique_id=1382512283 instance=ExtResource("6_qmv3x")]
+position = Vector2(565, 53)
+collectible = 2
