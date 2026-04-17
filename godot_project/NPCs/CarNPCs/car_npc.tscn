@@ -1,0 +1,34 @@
+[gd_scene format=3 uid="uid://dyyfbi2feg0tg"]
+
+[ext_resource type="Script" uid="uid://byceurmktur2h" path="res://NPCs/CarNPCs/car_npc.gd" id="1_4uf0b"]
+[ext_resource type="Texture2D" uid="uid://dbhqxg6qc3506" path="res://Sprites/car-truck1.png" id="1_34b86"]
+[ext_resource type="Script" uid="uid://bv4uhbke6qxcq" path="res://NPCs/CarNPCs/path_follow_2d.gd" id="2_hxr0x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4uf0b"]
+size = Vector2(29, 54)
+
+[sub_resource type="Curve2D" id="Curve2D_34b86"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 1, -14, 0, 0, 0, 0, -3, -139, 0, 0, 0, 0, 466, -135, 0, 0, 0, 0, 466, 401, 0, 0, 0, 0, -4, 400, 0, 0, 0, 0, 1, -13, 0, 0, 0, 0, 1, -14)
+}
+point_count = 7
+
+[node name="CarNPC" type="CharacterBody2D" unique_id=1886069680]
+script = ExtResource("1_4uf0b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1018675667]
+position = Vector2(1, -14)
+shape = SubResource("RectangleShape2D_4uf0b")
+debug_color = Color(0, 0.6, 0.7019608, 0.41960785)
+
+[node name="Path2D" type="Path2D" parent="." unique_id=939334473]
+curve = SubResource("Curve2D_34b86")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=732824126]
+position = Vector2(1, -14)
+rotation = -1.6027855
+script = ExtResource("2_hxr0x")
+
+[node name="Sprite2D" type="Sprite2D" parent="Path2D/PathFollow2D" unique_id=797354324]
+rotation = 1.6027855
+texture = ExtResource("1_34b86")

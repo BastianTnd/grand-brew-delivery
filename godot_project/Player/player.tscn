@@ -14,11 +14,13 @@ script = ExtResource("1_4ntmi")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897074459]
 rotation = 1.5707964
+scale = Vector2(0.7, 0.7)
 texture = ExtResource("2_btcbx")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1567269969]
 position = Vector2(0.5, 0.5)
 rotation = 1.5707964
+scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_hvfyp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=229678205]
@@ -28,4 +30,5 @@ shape = SubResource("RectangleShape2D_hvfyp")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=300668999]
 position = Vector2(0.5, 1)
 rotation = 1.5707964
+scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_4ntmi")
