@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Grand Brew Delivery"
-run/main_scene="uid://b43n0r1ks3ath"
+run/main_scene="uid://ttbx6s2tnmnb"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
 
