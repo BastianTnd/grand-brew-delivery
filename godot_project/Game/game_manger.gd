@@ -1,9 +1,24 @@
 extends Node2D
 
-var collectible_blueprint = preload("res://Collectible/collectible.tscn")
+const collectible_blueprint = preload("res://Collectible/collectible.tscn")
+const spawn_points = {
+	1: [Vector2(100,100), Vector2(100, 400), Vector2(500, 500)],
+	2: [],
+	3: [],
+	4: [],
+	5: [],
+	6: [],
+	7: [],
+	8: [],
+	9: [],
+	10: []
+}
+
+var rng = RandomNumberGenerator.new()
 
 
 func _ready() -> void:
+	# Spawn all Collectibles when starting Game
 	spawn()
 	
 func spawn() -> void:
@@ -22,7 +37,11 @@ func spawn() -> void:
 	add_child(collectible_instance_hops)
 	add_child(collectible_instance_yeast)
 	
-	# Set initial spawn position
+	# Get the Spawn Points
+	var random_number = rng.randi_range(1, 10)
+	print(random_number)
+	
+	# Set spawn position
 	collectible_instance_malt.position = Vector2(100, 100)
 	collectible_instance_hops.position = Vector2(100, 400)
 	collectible_instance_yeast.position = Vector2(500, 500)

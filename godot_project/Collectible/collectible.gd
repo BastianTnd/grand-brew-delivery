@@ -6,6 +6,8 @@ extends Area2D
 
 enum collectible_type {MALT, HOPS, YEAST}
 
+
+
 var malt_sprite = "res://Collectible/Sprites/Malz_M.png"
 var hops_sprite = "res://Collectible/Sprites/Hops_H.png"
 var yeast_sprite = "res://Collectible/Sprites/Yeast_Y.png"
