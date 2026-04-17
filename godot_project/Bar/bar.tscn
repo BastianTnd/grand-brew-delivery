@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://bfkkj6ddnv3qi"]
+
+[ext_resource type="Script" uid="uid://jo4vvxehj8nu" path="res://Bar/bar.gd" id="1_oy6uh"]
+[ext_resource type="Texture2D" uid="uid://cvse70exwobx0" path="res://Map/Sprites/City Prop Tileset update 2.png" id="2_qr43a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_maxgg"]
+size = Vector2(41, 29)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5uas7"]
+size = Vector2(60, 35)
+
+[node name="Bar" type="Node2D" unique_id=423538003]
+script = ExtResource("1_oy6uh")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=2001285000]
+texture = ExtResource("2_qr43a")
+region_enabled = true
+region_rect = Rect2(112.985886, 256.63007, 46.76329, 63.12616)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=89246379]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=1348986403]
+position = Vector2(-0.5, 15.5)
+shape = SubResource("RectangleShape2D_maxgg")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=278657498]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2146170639]
+position = Vector2(0, 50.5)
+shape = SubResource("RectangleShape2D_5uas7")

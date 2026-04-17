@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dhdug8ns3oiy2"
-path="res://.godot/imported/car-truck4.png-55d5d367970f8dfa6cdde6dfb1bef598.ctex"
+uid="uid://dpfsx6cqd64wa"
+path="res://.godot/imported/car-truck3.png-4d704d4f68775f474cf578defc990ac2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Sprites/car-truck4.png"
-dest_files=["res://.godot/imported/car-truck4.png-55d5d367970f8dfa6cdde6dfb1bef598.ctex"]
+source_file="res://Sprites/car-truck3.png"
+dest_files=["res://.godot/imported/car-truck3.png-4d704d4f68775f474cf578defc990ac2.ctex"]
 
 [params]
 

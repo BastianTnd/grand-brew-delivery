@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://blb0cbh41l55h"]
+
+[ext_resource type="PackedScene" uid="uid://bvp0noy8wujyd" path="res://Map/map.tscn" id="1_epypp"]
+[ext_resource type="PackedScene" uid="uid://b43n0r1ks3ath" path="res://Player/player.tscn" id="2_0hol4"]
+[ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="3_q6r6c"]
+[ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_0hol4"]
+
+[node name="Node2D" type="Node2D" unique_id=916570660]
+
+[node name="Map" parent="." unique_id=1676787412 instance=ExtResource("1_epypp")]
+position = Vector2(-576, -338)
+
+[node name="Player" parent="." unique_id=282871353 instance=ExtResource("2_0hol4")]
+
+[node name="BrewingStation" parent="." unique_id=1836337703 instance=ExtResource("3_q6r6c")]
+position = Vector2(324, -255)
+
+[node name="Bar" parent="." unique_id=423538003 instance=ExtResource("4_0hol4")]
+position = Vector2(-470, 135)
