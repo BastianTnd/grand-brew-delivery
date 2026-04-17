@@ -1,0 +1,32 @@
+[gd_scene format=3 uid="uid://58m1ibhbsjtt"]
+
+[ext_resource type="Script" uid="uid://byceurmktur2h" path="res://NPCs/CarNPCs/car_npc.gd" id="1_6sn4n"]
+[ext_resource type="Script" uid="uid://bv4uhbke6qxcq" path="res://NPCs/CarNPCs/path_follow_2d.gd" id="1_o5fii"]
+[ext_resource type="Texture2D" uid="uid://dbhqxg6qc3506" path="res://Sprites/car-truck1.png" id="1_vy30y"]
+
+[sub_resource type="Curve2D" id="Curve2D_360oi"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -6, 41, 0, 0, 0, 0, -2, -99, 0, 0, 0, 0, 438, -95, 0, 0, 0, 0, 441, 393, 0, 0, 0, 0, -7, 391, 0, 0, 0, 0, -6, 41)
+}
+point_count = 6
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sn4n"]
+size = Vector2(26, 52)
+
+[node name="CarRoutine" type="Path2D" unique_id=1949011404]
+curve = SubResource("Curve2D_360oi")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1510514353]
+position = Vector2(-6.78356, 315.24582)
+progress = 1591.8499
+rotates = false
+script = ExtResource("1_o5fii")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="PathFollow2D" unique_id=1151691237]
+script = ExtResource("1_6sn4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/CharacterBody2D" unique_id=216863966]
+texture = ExtResource("1_vy30y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/CharacterBody2D" unique_id=125323235]
+shape = SubResource("RectangleShape2D_6sn4n")
