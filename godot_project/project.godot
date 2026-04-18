@@ -13,7 +13,7 @@ config_version=5
 config/name="Grand Brew Delivery"
 run/main_scene="uid://dgt0l04fc5n87"
 config/features=PackedStringArray("4.6", "GL Compatibility")
-config/icon="res://icon.svg"
+config/icon="uid://cshf71bo2ik60"
 
 [autoload]
 

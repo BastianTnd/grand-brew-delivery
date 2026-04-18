@@ -1,23 +1,41 @@
 extends CharacterBody2D
 
-# --- Physics ---
-@export var engine_power = 1800.0      
-@export var max_speed = 950.0          
-@export var friction = 0.97            
-@export var steering_angle = 25.0      
-@export var normal_traction = 0.12     
+# --- Signals ---
+signal beer_level_changed(new_value)
+
+# --- Physics & Driving Behavior ---
+@export var engine_power = 1200.0
+@export var max_speed = 800.0         # Adjusted from 1500 for better playability
+@export var friction = 0.96
+@export var steering_angle = 30.0
+@export var normal_traction = 0.10
 
 # --- Beer Mechanics ---
 @export var max_beer = 100.0
 var beer_level = 0.0
 var is_refilling = false 
 var crash_cooldown = 0.0 
-var has_filled_this_round = false # Locks the brewery after use
+var has_filled_this_round = false
+
+# --- UI Reference ---
+var beer_label: Label
 
 # --- Arrow Display ---
 @export var arrow_distance = 100.0 
 @export var arrow_size = 18.0      
 var current_arrow_color = Color.WHITE
+
+func _ready():
+	await get_tree().process_frame
+	
+	var hud_node = get_tree().get_first_node_in_group("hud")
+	if hud_node:
+		beer_label = hud_node.find_child("BeerLabel", true) as Label
+	else:
+		print("WARNING: 'hud' group not found! Check Node -> Groups in the Editor.")
+
+	beer_level_changed.connect(_on_beer_level_changed)
+	_on_beer_level_changed(beer_level)
 
 func _draw():
 	var target_pos = _get_current_target_position()
@@ -37,30 +55,43 @@ func _physics_process(delta):
 	if crash_cooldown > 0: 
 		crash_cooldown -= delta
 
-	var move_input = 0.0
-	var turn = 0.0
+	var move_input = Input.get_axis("ui_down", "ui_up")
+	var turn = Input.get_axis("ui_left", "ui_right")
 	
-	if not is_refilling:
-		move_input = Input.get_axis("ui_down", "ui_up")
-		turn = Input.get_axis("ui_left", "ui_right")
-	else:
+	# Handle stopping during refill/unload
+	if is_refilling:
 		velocity = velocity.move_toward(Vector2.ZERO, 600 * delta)
+		move_input = 0
+		turn = 0
 	
+	# --- Reverse Speed Logic ---
+	var current_power = engine_power
+	if move_input < 0:
+		current_power = engine_power * 0.3
+	
+	# Acceleration
 	if move_input != 0:
-		velocity += transform.x * move_input * engine_power * delta
+		var target_vel = transform.x * move_input * current_power
+		velocity = velocity.move_toward(target_vel, current_power * delta)
 	else:
-		velocity = velocity.move_toward(Vector2.ZERO, 200 * delta)
+		velocity = velocity.move_toward(Vector2.ZERO, 300 * delta)
 
+	# Friction and Handling
 	velocity *= friction
 	var speed = velocity.length()
 	var is_forward = velocity.dot(transform.x) > 0
 	
 	if speed > 20:
 		var side_factor = 1 if is_forward else -1
-		var target_vel = velocity.rotated(turn * deg_to_rad(steering_angle) * side_factor)
-		velocity = velocity.lerp(target_vel, normal_traction)
-		rotation = lerp_angle(rotation, velocity.angle() if is_forward else (velocity * -1).angle(), 12.0 * delta)
+		var target_steering = velocity.rotated(turn * deg_to_rad(steering_angle) * side_factor)
+		velocity = velocity.lerp(target_steering, normal_traction)
+		rotation = lerp_angle(rotation, velocity.angle() if is_forward else (velocity * -1).angle(), 10.0 * delta)
 
+	# Speed Limit
+	if speed > max_speed:
+		velocity = velocity.limit_length(max_speed)
+
+	# Collision and Crash Penalty
 	var collided = move_and_slide()
 	if collided and speed > 180: 
 		apply_crash_penalty()
@@ -71,6 +102,7 @@ func apply_crash_penalty():
 	if crash_cooldown <= 0 and beer_level > 0:
 		var penalty = 10.0 
 		beer_level = clamp(beer_level - penalty, 0, max_beer)
+		beer_level_changed.emit(beer_level)
 		crash_cooldown = 1.2
 		
 		var tween = create_tween()
@@ -79,7 +111,7 @@ func apply_crash_penalty():
 		print("CRASH! Beer spilled.")
 
 func _get_current_target_position() -> Vector2:
-	# 1. Collect Phase (Yellow)
+	# 1. Collection Phase
 	if ScoreManager.items_collected < 3:
 		current_arrow_color = Color.YELLOW
 		var items = get_tree().get_nodes_in_group("collectibles")
@@ -90,13 +122,13 @@ func _get_current_target_position() -> Vector2:
 					closest = item
 			return closest.global_position
 			
-	# 2. Refill Phase (Orange)
+	# 2. Refill Phase
 	elif not has_filled_this_round:
 		current_arrow_color = Color.ORANGE
 		var station = get_tree().get_first_node_in_group("brewing_station")
 		if station: return station.global_position
 		
-	# 3. Deliver Phase (Green)
+	# 3. Delivery Phase
 	else:
 		current_arrow_color = Color.GREEN
 		var bar = get_tree().get_first_node_in_group("bar")
@@ -107,6 +139,7 @@ func _get_current_target_position() -> Vector2:
 func add_beer(amount):
 	is_refilling = true
 	beer_level = clamp(beer_level + amount, 0, max_beer)
+	beer_level_changed.emit(beer_level)
 	if beer_level >= max_beer: 
 		is_refilling = false
 		has_filled_this_round = true
@@ -117,8 +150,13 @@ func unload_beer(amount):
 		var actual = amount if beer_level >= amount else beer_level
 		ScoreManager.add_points(actual)
 		beer_level -= actual
+		beer_level_changed.emit(beer_level)
 		if beer_level <= 0:
 			beer_level = 0
 			is_refilling = false
 			has_filled_this_round = false
 			ScoreManager.complete_delivery()
+
+func _on_beer_level_changed(new_value):
+	if beer_label:
+		beer_label.text = "Beer: " + str(round(new_value)) + "%"
