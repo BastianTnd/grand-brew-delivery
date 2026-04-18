@@ -10,7 +10,7 @@ func _physics_process(delta: float) -> void:
 	# Take position from PathFollow2D
 	var path_follow = get_parent() # PathFollow2D
 	global_position = path_follow.global_position
-	rotation = path_follow.rotation
+	#rotation = path_follow.rotation
 
 	# move_and_slide für Collision Detection aufrufen
 	var collided = move_and_slide()

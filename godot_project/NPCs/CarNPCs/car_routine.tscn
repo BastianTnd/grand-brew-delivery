@@ -6,7 +6,7 @@
 
 [sub_resource type="Curve2D" id="Curve2D_360oi"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -6, 41, 0, 0, 0, 0, -2, -99, 0, 0, 0, 0, 438, -95, 0, 0, 0, 0, 441, 393, 0, 0, 0, 0, -7, 391, 0, 0, 0, 0, -6, 41)
+"points": PackedVector2Array(0, 0, 0, 0, -6, 41, 0, 0, 0, 0, 0, -132, 0, 0, 0, 0, 434, -132, 0, 0, 0, 0, 429, 387, 0, 0, 0, 0, -7, 391, 0, 0, 0, 0, -6, 41)
 }
 point_count = 6
 
@@ -17,16 +17,18 @@ size = Vector2(26, 52)
 curve = SubResource("Curve2D_360oi")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="." unique_id=1510514353]
-position = Vector2(-6.78356, 315.24582)
-progress = 1591.8499
-rotates = false
+position = Vector2(-6, 41)
+rotation = -1.5361282
 script = ExtResource("1_o5fii")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="PathFollow2D" unique_id=1151691237]
 script = ExtResource("1_6sn4n")
 
 [node name="Sprite2D" type="Sprite2D" parent="PathFollow2D/CharacterBody2D" unique_id=216863966]
+rotation = 1.5428711
 texture = ExtResource("1_vy30y")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="PathFollow2D/CharacterBody2D" unique_id=125323235]
+position = Vector2(0.9995921, -0.02855981)
+rotation = 1.5428711
 shape = SubResource("RectangleShape2D_6sn4n")

@@ -19,9 +19,12 @@ script = ExtResource("1_oomkl")
 position = Vector2(442, 384)
 
 [node name="BrewingStation" parent="." unique_id=1836337703 instance=ExtResource("5_fwxkx")]
-position = Vector2(-61, 404)
+position = Vector2(-80, 320)
 
 [node name="CarRoutine" parent="." unique_id=1949011404 instance=ExtResource("5_qmv3x")]
-position = Vector2(84, 92)
+position = Vector2(87, 96)
+
+[node name="CarRoutine2" parent="." unique_id=1360627592 instance=ExtResource("5_qmv3x")]
+position = Vector2(-333, 79)
 
 [node name="CanvasLayer" parent="." unique_id=2140511235 instance=ExtResource("7_oomkl")]
