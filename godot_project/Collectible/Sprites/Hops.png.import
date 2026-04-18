@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tetkb8aye8qp"
-path="res://.godot/imported/Malz_M.png-c9c74cd1d10f0b2dac5e28809a0062dd.ctex"
+uid="uid://cshf71bo2ik60"
+path="res://.godot/imported/Hops.png-5d024a3bc3241a801c61d9d92ad83160.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Collectible/Sprites/Malz_M.png"
-dest_files=["res://.godot/imported/Malz_M.png-c9c74cd1d10f0b2dac5e28809a0062dd.ctex"]
+source_file="res://Collectible/Sprites/Hops.png"
+dest_files=["res://.godot/imported/Hops.png-5d024a3bc3241a801c61d9d92ad83160.ctex"]
 
 [params]
 

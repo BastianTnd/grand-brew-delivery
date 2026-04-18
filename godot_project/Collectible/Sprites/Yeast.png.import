@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cpwdrlwa1g57o"
-path="res://.godot/imported/Yeast_Y.png-9e2e76806d052548729050072720d396.ctex"
+uid="uid://dnk532itj31s7"
+path="res://.godot/imported/Yeast.png-6b9b715413efff320abd1a6f9c7b7484.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Collectible/Sprites/Yeast_Y.png"
-dest_files=["res://.godot/imported/Yeast_Y.png-9e2e76806d052548729050072720d396.ctex"]
+source_file="res://Collectible/Sprites/Yeast.png"
+dest_files=["res://.godot/imported/Yeast.png-6b9b715413efff320abd1a6f9c7b7484.ctex"]
 
 [params]
 
