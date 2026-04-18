@@ -8,6 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
 [ext_resource type="PackedScene" uid="uid://di2uirwf3eamg" path="res://Game/HUD/hud.tscn" id="7_oomkl"]
 
+[sub_resource type="Curve2D" id="Curve2D_oomkl"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 42, -125, 0, 0, 0, 0, 372, -127, 0, 0, 0, 0, 357, 383, 0, 0, 0, 0, 40, 395, 0, 0, 0, 0, 39, 68, 0, 0, 0, 0, 38, 23)
+}
+point_count = 7
+
 [node name="Game" type="Node2D" unique_id=916570660]
 script = ExtResource("1_oomkl")
 
@@ -16,15 +22,16 @@ script = ExtResource("1_oomkl")
 [node name="Player" parent="." unique_id=282871353 instance=ExtResource("2_m22wp")]
 
 [node name="Bar" parent="." unique_id=423538003 instance=ExtResource("4_jcm6v")]
-position = Vector2(442, 384)
+position = Vector2(945, 1127)
 
 [node name="BrewingStation" parent="." unique_id=1836337703 instance=ExtResource("5_fwxkx")]
-position = Vector2(-80, 320)
+position = Vector2(-960, -71)
 
 [node name="CarRoutine" parent="." unique_id=1949011404 instance=ExtResource("5_qmv3x")]
 position = Vector2(87, 96)
 
 [node name="CarRoutine2" parent="." unique_id=1360627592 instance=ExtResource("5_qmv3x")]
-position = Vector2(-333, 79)
+position = Vector2(-351, 79)
+curve = SubResource("Curve2D_oomkl")
 
 [node name="CanvasLayer" parent="." unique_id=2140511235 instance=ExtResource("7_oomkl")]
