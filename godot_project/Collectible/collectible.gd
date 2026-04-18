@@ -3,7 +3,6 @@ extends Area2D
 
 @onready var collectible_sprite: Sprite2D = $Sprite2D
 @export var collectible: collectible_type
-
 enum collectible_type {MALT, HOPS, YEAST}
 
 var malt_sprite = "res://Collectible/Sprites/Malz_M.png"
@@ -15,22 +14,14 @@ func _ready() -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
-		# Destroy Collectible
+		if ScoreManager:
+			ScoreManager.collect_item()
 		self.queue_free()
 	
-# Sets Sprite depending on collectible Type
 func change_sprite() -> void:
-	# Malt Sprite
 	if collectible == collectible_type.MALT:
-		var texture = load(malt_sprite)
-		collectible_sprite.texture = texture
-		
-	# Hops Sprite
-	if collectible == collectible_type.HOPS:
-		var texture = load(hops_sprite)
-		collectible_sprite.texture = texture
-	
-	# Yeast Sprite
-	if collectible == collectible_type.YEAST:
-		var texture = load(yeast_sprite)
-		collectible_sprite.texture = texture
+		collectible_sprite.texture = load(malt_sprite)
+	elif collectible == collectible_type.HOPS:
+		collectible_sprite.texture = load(hops_sprite)
+	elif collectible == collectible_type.YEAST:
+		collectible_sprite.texture = load(yeast_sprite)

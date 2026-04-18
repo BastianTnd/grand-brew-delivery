@@ -9,7 +9,7 @@ size = Vector2(61, 31)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qi2ec"]
 size = Vector2(63, 40)
 
-[node name="BrewingStation" type="Node2D" unique_id=1836337703]
+[node name="BrewingStation" type="Node2D" unique_id=1836337703 groups=["brewing_station"]]
 script = ExtResource("1_fmctb")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=259589046]

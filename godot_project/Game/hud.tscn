@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://di2uirwf3eamg"]
+
+[ext_resource type="Script" uid="uid://bmrg6ie3ty0l6" path="res://Game/hud.gd" id="1_cinpd"]
+
+[node name="HUD" type="CanvasLayer" unique_id=2140511235]
+script = ExtResource("1_cinpd")
+
+[node name="TimeLabel" type="Label" parent="." unique_id=1118626193]
+offset_left = 5.0
+offset_right = 218.0
+offset_bottom = 120.0
+text = "TIME 00:00:00"
+
+[node name="ScoreLabel" type="Label" parent="." unique_id=390803879]
+offset_left = 1801.0
+offset_right = 2027.0
+offset_bottom = 137.0
+text = "SCORE: 123456"

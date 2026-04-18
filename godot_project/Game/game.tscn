@@ -1,11 +1,12 @@
 [gd_scene format=3 uid="uid://ttbx6s2tnmnb"]
 
 [ext_resource type="PackedScene" uid="uid://bvp0noy8wujyd" path="res://Map/map.tscn" id="1_1erje"]
-[ext_resource type="Script" uid="uid://egbw7oq2pqra" path="res://Game/game_manger.gd" id="1_oomkl"]
+[ext_resource type="Script" uid="uid://egbw7oq2pqra" path="res://Game/game_manager.gd" id="1_oomkl"]
 [ext_resource type="PackedScene" uid="uid://b43n0r1ks3ath" path="res://Player/player.tscn" id="2_m22wp"]
 [ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="5_fwxkx"]
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
+[ext_resource type="PackedScene" uid="uid://di2uirwf3eamg" path="res://Game/hud.tscn" id="7_oomkl"]
 
 [node name="Game" type="Node2D" unique_id=916570660]
 script = ExtResource("1_oomkl")
@@ -22,3 +23,5 @@ position = Vector2(-61, 404)
 
 [node name="CarRoutine" parent="." unique_id=1949011404 instance=ExtResource("5_qmv3x")]
 position = Vector2(84, 92)
+
+[node name="CanvasLayer" parent="." unique_id=2140511235 instance=ExtResource("7_oomkl")]

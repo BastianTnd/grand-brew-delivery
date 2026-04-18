@@ -25,6 +25,6 @@ shape = SubResource("RectangleShape2D_maxgg")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=278657498]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2146170639]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=2146170639 groups=["bar"]]
 position = Vector2(0, 50.5)
 shape = SubResource("RectangleShape2D_5uas7")

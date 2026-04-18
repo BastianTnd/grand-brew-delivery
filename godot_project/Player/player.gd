@@ -1,132 +1,124 @@
 extends CharacterBody2D
 
-# --- Physics Settings ---
+# --- Physics ---
 @export var engine_power = 1800.0      
 @export var max_speed = 950.0          
-@export var max_speed_reverse = 300.0  # Limit for reverse driving
-@export var reverse_power_factor = 0.4 # Power reduction for reverse
-@export var steering_angle = 25.0      
 @export var friction = 0.97            
+@export var steering_angle = 25.0      
+@export var normal_traction = 0.12     
 
-# --- Drift Mechanics ---
-@export var drift_threshold = 400.0
-@export var drift_intensity = 0.05      
-@export var normal_traction = 0.12      
-
-# --- Beer System ---
+# --- Beer Mechanics ---
 @export var max_beer = 100.0
 var beer_level = 0.0
-var last_announced_step = 0 
-var is_refilling = false # Locks movement during unloading
+var is_refilling = false 
+var crash_cooldown = 0.0 
+var has_filled_this_round = false # Locks the brewery after use
 
-# --- Crash Protection ---
-var crash_cooldown = 0.0
-@export var cooldown_time = 0.8        
-@export var min_crash_speed = 300.0     
+# --- Arrow Display ---
+@export var arrow_distance = 100.0 
+@export var arrow_size = 18.0      
+var current_arrow_color = Color.WHITE
+
+func _draw():
+	var target_pos = _get_current_target_position()
+	
+	if target_pos != Vector2.ZERO and not is_refilling:
+		var direction = global_position.direction_to(target_pos)
+		var angle = direction.angle() - global_rotation
+		var arrow_center = Vector2(arrow_distance, 0).rotated(angle)
+		
+		var p1 = arrow_center + Vector2(arrow_size, 0).rotated(angle)
+		var p2 = arrow_center + Vector2(-arrow_size, -arrow_size/1.5).rotated(angle)
+		var p3 = arrow_center + Vector2(-arrow_size, arrow_size/1.5).rotated(angle)
+		
+		draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([current_arrow_color]))
 
 func _physics_process(delta):
-	# Handle crash cooldown timer
-	if crash_cooldown > 0:
+	if crash_cooldown > 0: 
 		crash_cooldown -= delta
 
-	# 1. INPUT HANDLING
 	var move_input = 0.0
 	var turn = 0.0
 	
-	# Only allow input if not currently refilling or unloading
 	if not is_refilling:
 		move_input = Input.get_axis("ui_down", "ui_up")
 		turn = Input.get_axis("ui_left", "ui_right")
 	else:
-		# Auto-brake when at a station
 		velocity = velocity.move_toward(Vector2.ZERO, 600 * delta)
 	
-	# 2. ACCELERATION (Forward vs. Reverse Power)
 	if move_input != 0:
-		var current_accel = engine_power
-		if move_input < 0: 
-			current_accel *= reverse_power_factor
-		velocity += transform.x * move_input * current_accel * delta
+		velocity += transform.x * move_input * engine_power * delta
 	else:
-		# Slow down when no input is given
 		velocity = velocity.move_toward(Vector2.ZERO, 200 * delta)
 
-	# 3. SPEED LIMITS
-	velocity *= friction 
+	velocity *= friction
 	var speed = velocity.length()
 	var is_forward = velocity.dot(transform.x) > 0
 	
-	if is_forward:
-		if speed > max_speed:
-			velocity = velocity.normalized() * max_speed
-	else:
-		if speed > max_speed_reverse:
-			velocity = velocity.normalized() * max_speed_reverse
-
-	# 4. STEERING AND (DRIFTING NOT WORKING LOL)
 	if speed > 20:
-		var current_traction = normal_traction
-		
-		# Apply drift logic if above speed threshold
-		if speed > drift_threshold:
-			var drift_factor = (speed - drift_threshold) / (max_speed - drift_threshold)
-			current_traction = lerp(normal_traction, drift_intensity, clamp(drift_factor, 0.0, 1.0))
-		
-		# Reverse steering direction if driving backwards
 		var side_factor = 1 if is_forward else -1
-		var target_vel = velocity.rotated(turn * deg_to_rad(steering_angle) * side_factor * (1.0 if move_input != 0 else 0.5))
-		velocity = velocity.lerp(target_vel, current_traction)
-		
-		# Rotate the sprite towards movement direction
-		var target_rotation = velocity.angle() if is_forward else (velocity * -1).angle()
-		rotation = lerp_angle(rotation, target_rotation, 12.0 * delta)
+		var target_vel = velocity.rotated(turn * deg_to_rad(steering_angle) * side_factor)
+		velocity = velocity.lerp(target_vel, normal_traction)
+		rotation = lerp_angle(rotation, velocity.angle() if is_forward else (velocity * -1).angle(), 12.0 * delta)
 
-	# 5. COLLISION AND DAMAGE
-	var pre_collision_speed = speed
 	var collided = move_and_slide()
-	
-	if collided and not is_refilling and crash_cooldown <= 0:
-		if pre_collision_speed > min_crash_speed:
-			beer_level = clamp(beer_level - (max_beer * 0.10), 0, max_beer)
-			crash_cooldown = cooldown_time
-			last_announced_step = int(beer_level / 10) * 10 
-			print("CRASH! Beer lost!")
+	if collided and speed > 180: 
+		apply_crash_penalty()
 
-# --- STATION METHODS ---
+	queue_redraw()
+
+func apply_crash_penalty():
+	if crash_cooldown <= 0 and beer_level > 0:
+		var penalty = 10.0 
+		beer_level = clamp(beer_level - penalty, 0, max_beer)
+		crash_cooldown = 1.2
+		
+		var tween = create_tween()
+		tween.tween_property(self, "modulate", Color.RED, 0.1)
+		tween.tween_property(self, "modulate", Color.WHITE, 0.1)
+		print("CRASH! Beer spilled.")
+
+func _get_current_target_position() -> Vector2:
+	# 1. Collect Phase (Yellow)
+	if ScoreManager.items_collected < 3:
+		current_arrow_color = Color.YELLOW
+		var items = get_tree().get_nodes_in_group("collectibles")
+		if items.size() > 0:
+			var closest = items[0]
+			for item in items:
+				if global_position.distance_to(item.global_position) < global_position.distance_to(closest.global_position):
+					closest = item
+			return closest.global_position
+			
+	# 2. Refill Phase (Orange)
+	elif not has_filled_this_round:
+		current_arrow_color = Color.ORANGE
+		var station = get_tree().get_first_node_in_group("brewing_station")
+		if station: return station.global_position
+		
+	# 3. Deliver Phase (Green)
+	else:
+		current_arrow_color = Color.GREEN
+		var bar = get_tree().get_first_node_in_group("bar")
+		if bar: return bar.global_position
+		
+	return Vector2.ZERO
 
 func add_beer(amount):
 	is_refilling = true
 	beer_level = clamp(beer_level + amount, 0, max_beer)
-	_check_announcement("Refilling")
-	if beer_level >= max_beer:
+	if beer_level >= max_beer: 
 		is_refilling = false
-		print("REFILLED!")
+		has_filled_this_round = true
 
 func unload_beer(amount):
 	if beer_level > 0:
 		is_refilling = true
-		
-		# calculation to ensure exact score transmission
-		var actual_unload = amount
-		if beer_level < amount:
-			actual_unload = beer_level 
-		
-		if ScoreManager:
-			ScoreManager.add_points(actual_unload)
-		
-		beer_level -= actual_unload
-		_check_announcement("Unloading")
-		
-		# Unlock movement once the tank is empty
+		var actual = amount if beer_level >= amount else beer_level
+		ScoreManager.add_points(actual)
+		beer_level -= actual
 		if beer_level <= 0:
 			beer_level = 0
 			is_refilling = false
-			last_announced_step = 0
-			print("DELIVERY FINISHED! Score: ", round(ScoreManager.total_points))
-
-# Helper to print progress every 10%
-func _check_announcement(type):
-	var current_step = int(beer_level / 10) * 10
-	if current_step != last_announced_step:
-		last_announced_step = current_step
-		print(type, ": ", current_step, "%")
+			has_filled_this_round = false
+			ScoreManager.complete_delivery()

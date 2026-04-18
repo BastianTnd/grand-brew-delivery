@@ -4,7 +4,7 @@
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3bsdh"]
 
-[node name="Collectible" type="Area2D" unique_id=1851355729]
+[node name="Collectible" type="Area2D" unique_id=1851355729 groups=["collectibles"]]
 script = ExtResource("1_pel21")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1990514737]
