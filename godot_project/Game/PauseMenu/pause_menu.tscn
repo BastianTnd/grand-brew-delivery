@@ -1,0 +1,57 @@
+[gd_scene format=3 uid="uid://3ytut68up61r"]
+
+[ext_resource type="Script" uid="uid://bva8ikxkeh46l" path="res://Game/PauseMenu/pause_menu.gd" id="1_ywais"]
+
+[node name="PauseMenu" type="Control" unique_id=1780954204]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ywais")
+
+[node name="MarginContainerTitle" type="MarginContainer" parent="." unique_id=1750627411]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -53.0
+offset_right = 53.0
+offset_bottom = 40.0
+grow_horizontal = 2
+
+[node name="Title" type="Label" parent="MarginContainerTitle" unique_id=1508725162]
+layout_mode = 2
+theme_override_font_sizes/font_size = 100
+text = "Game Paused"
+
+[node name="MarginContainerButtons" type="MarginContainer" parent="." unique_id=698667047]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerButtons" unique_id=741858529]
+layout_mode = 2
+
+[node name="Continue" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=888462840]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Continue"
+
+[node name="BackToMainMenu" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=1542800415]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Back to Main Menu"
+
+[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Continue" to="." method="_on_continue_pressed"]
+[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/BackToMainMenu" to="." method="_on_back_to_main_menu_pressed"]

@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="5_fwxkx"]
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
-[ext_resource type="PackedScene" uid="uid://di2uirwf3eamg" path="res://Game/hud.tscn" id="7_oomkl"]
+[ext_resource type="PackedScene" uid="uid://di2uirwf3eamg" path="res://Game/HUD/hud.tscn" id="7_oomkl"]
 
 [node name="Game" type="Node2D" unique_id=916570660]
 script = ExtResource("1_oomkl")
