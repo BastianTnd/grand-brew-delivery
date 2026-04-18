@@ -5,14 +5,26 @@
 [node name="HUD" type="CanvasLayer" unique_id=2140511235]
 script = ExtResource("1_cinpd")
 
-[node name="TimeLabel" type="Label" parent="." unique_id=1118626193]
-offset_left = 5.0
-offset_right = 218.0
-offset_bottom = 120.0
+[node name="MarginContainerTime" type="MarginContainer" parent="." unique_id=1578489979]
+offset_right = 106.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+
+[node name="TimeLabel" type="Label" parent="MarginContainerTime" unique_id=1118626193]
+layout_mode = 2
 text = "TIME 00:00:00"
 
-[node name="ScoreLabel" type="Label" parent="." unique_id=390803879]
-offset_left = 1801.0
-offset_right = 2027.0
-offset_bottom = 137.0
+[node name="MarginContainerScore" type="MarginContainer" parent="." unique_id=926505323]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -115.0
+offset_bottom = 40.0
+grow_horizontal = 0
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+
+[node name="ScoreLabel" type="Label" parent="MarginContainerScore" unique_id=390803879]
+layout_mode = 2
 text = "SCORE: 123456"

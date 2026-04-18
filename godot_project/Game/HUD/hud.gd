@@ -1,7 +1,7 @@
 extends CanvasLayer
 
-@onready var time_label = $TimeLabel
-@onready var score_label = $ScoreLabel
+@onready var time_label = $MarginContainerTime/TimeLabel
+@onready var score_label = $MarginContainerScore/ScoreLabel
 
 func _process(_delta):
 	if ScoreManager:
