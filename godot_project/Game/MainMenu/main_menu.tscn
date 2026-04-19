@@ -52,6 +52,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "How to Play"
 
+[node name="Credits" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=1556261744]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "Credits"
+
 [node name="Quit" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=652781529]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
@@ -59,4 +64,5 @@ text = "Quit"
 
 [connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Play" to="." method="_on_play_pressed"]
 [connection signal="pressed" from="MarginContainerButtons/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
+[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
 [connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
