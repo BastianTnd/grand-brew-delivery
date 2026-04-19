@@ -3,7 +3,7 @@ extends Node
 signal delivery_completed
 signal game_over
 
-@export var game_time : float = 120.0 
+@export var game_time : float = 10.0 
 var total_points : float = 0.0
 var items_collected : int = 0 
 var time_left : float
@@ -30,5 +30,10 @@ func complete_delivery():
 	delivery_completed.emit() 
 
 func _trigger_end():
-	await get_tree().create_timer(3.0).timeout
-	get_tree().quit()
+
+	get_tree().change_scene_to_file("res://Game/GameOverScreen/GameOverScreen.tscn")
+
+func reset_game():
+	total_points = 0.0
+	items_collected = 0
+	time_left = game_time
