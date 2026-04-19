@@ -26,22 +26,27 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 100
 text = "Credits"
 
-[node name="MarginContainerCredits" type="MarginContainer" parent="." unique_id=1234385097]
+[node name="MarginContainerCredits" type="MarginContainer" parent="." unique_id=919063756]
 layout_mode = 1
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerCredits" unique_id=1160821632]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerCredits" unique_id=1935569253]
 layout_mode = 2
+size_flags_horizontal = 4
 
-[node name="Label" type="Label" parent="MarginContainerCredits/VBoxContainer" unique_id=297563329]
+[node name="Label" type="Label" parent="MarginContainerCredits/VBoxContainer" unique_id=1771645470]
 layout_mode = 2
 text = "The Map was built using the tileset \"RPG Urban Pack\" from Kenney: https://kenney.nl/assets/rpg-urban-pack
 
-The Buildings used for the Brewing Station and Bar are from the tileset \"City Prop Tileset\" by shidky: https://shidky.itch.io/city-prop-tileset
+The Buildings used for the Brewing Station and Bar are from the tileset \"City Prop Tileset\" by shidky:
+https://shidky.itch.io/city-prop-tileset
 
-The Sprites we used for the cars are from \"Top View Car Truck Sprites\" by gameguy: https://opengameart.org/content/top-view-car-truck-sprites"
+The Sprites we used for the cars are from \"Top View Car Truck Sprites\" by gameguy:
+https://opengameart.org/content/top-view-car-truck-sprites"
