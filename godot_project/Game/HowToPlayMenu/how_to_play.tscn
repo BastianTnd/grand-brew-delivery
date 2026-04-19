@@ -49,10 +49,10 @@ text = "Controls: Move your truck using the Arrow Keys ↑↓←→
 Objective:
 - Gather all 3 Ingredients (Malt, Hops, Yeast) and bring them to the Brewing Station.
 - The Brewing Station will fill up your Beer Container (respresented by the Beer Mug in the top right corner)
-- When Beer Mug is full, drive as fast as possible to the Bar to deliver it, but warch out fotrBulding, Trees and Cars! Every crash will
+- When Beer Mug is full, drive as fast as possible to the Bar to deliver it, but warch out for Buldings, Trees and Cars! Every crash will
   drain your Beer Container!
 - Try to deliver as much Beer as possible!!!
-- Hint: Arrows around your Truck are navigating you where you can find the Collectibles, Brewing Station and Bar"
+- Hint: Arrows around your Truck are navigating you where you can find the Collectibles, Brewing Station and Bar."
 
 [node name="MarginContainerButton" type="MarginContainer" parent="." unique_id=1739954162]
 layout_mode = 1
