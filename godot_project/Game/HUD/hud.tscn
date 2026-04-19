@@ -36,11 +36,12 @@ script = ExtResource("1_cinpd")
 [node name="MarginContainerTime" type="MarginContainer" parent="." unique_id=1578489979]
 offset_right = 106.0
 offset_bottom = 40.0
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 10
+theme_override_constants/margin_left = 12
+theme_override_constants/margin_top = 12
 
 [node name="TimeLabel" type="Label" parent="MarginContainerTime" unique_id=1118626193]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "TIME 00:00:00"
 
 [node name="MarginContainerScore" type="MarginContainer" parent="." unique_id=926505323]
@@ -50,11 +51,12 @@ anchor_right = 1.0
 offset_left = -115.0
 offset_bottom = 40.0
 grow_horizontal = 0
-theme_override_constants/margin_top = 10
-theme_override_constants/margin_right = 10
+theme_override_constants/margin_top = 12
+theme_override_constants/margin_right = 12
 
 [node name="ScoreLabel" type="Label" parent="MarginContainerScore" unique_id=390803879]
 layout_mode = 2
+theme_override_font_sizes/font_size = 20
 text = "SCORE: 123456"
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=1826461645 groups=["hud"]]
@@ -68,6 +70,6 @@ theme_override_constants/margin_top = 60
 theme_override_constants/margin_right = 30
 
 [node name="BeerVisual" type="AnimatedSprite2D" parent="MarginContainer" unique_id=1737324907]
-position = Vector2(0, 70)
-scale = Vector2(2, 2)
+position = Vector2(-10, 100)
+scale = Vector2(6, 6)
 sprite_frames = SubResource("SpriteFrames_v1bms")
