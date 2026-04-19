@@ -3,7 +3,7 @@ extends Node
 signal delivery_completed
 signal game_over
 
-@export var game_time : float = 10.0 
+@export var game_time : float = 240.0 
 var total_points : float = 0.0
 var items_collected : int = 0 
 var time_left : float
