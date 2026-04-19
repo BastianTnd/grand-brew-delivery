@@ -17,4 +17,3 @@ func _physics_process(delta: float) -> void:
 
 	if collided and crash_cooldown <= 0:
 		crash_cooldown = cooldown_time
-		print("NPC Crashed!")

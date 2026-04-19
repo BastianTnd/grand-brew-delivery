@@ -14,6 +14,18 @@ _data = {
 }
 point_count = 7
 
+[sub_resource type="Curve2D" id="Curve2D_buohc"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 25, -136, 0, 0, 0, 0, 539, -120, 0, 0, 0, 0, 552, 308, 0, 0, 0, 0, 861, 323, 0, 0, 0, 0, 860, 529, 0, 0, 0, 0, 21, 516, 0, 0, 0, 0, 38, 23)
+}
+point_count = 10
+
+[sub_resource type="Curve2D" id="Curve2D_kul4i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 38, 23, 0, 0, 0, 0, 400, 39, 0, 0, 0, 0, 405, 748, 0, 0, 0, 0, 43, 750, 0, 0, 0, 0, 50, 1445, 0, 0, 0, 0, -522, 1445, 0, 0, 0, 0, -522, 580, 0, 0, 0, 0, 19, 582, 0, 0, 0, 0, 38, 23)
+}
+point_count = 12
+
 [node name="Game" type="Node2D" unique_id=916570660]
 script = ExtResource("1_oomkl")
 
@@ -33,5 +45,13 @@ position = Vector2(87, 96)
 [node name="CarRoutine2" parent="." unique_id=1360627592 instance=ExtResource("5_qmv3x")]
 position = Vector2(-351, 79)
 curve = SubResource("Curve2D_oomkl")
+
+[node name="CarRoutine3" parent="." unique_id=1865036679 instance=ExtResource("5_qmv3x")]
+position = Vector2(-871, 615)
+curve = SubResource("Curve2D_buohc")
+
+[node name="CarRoutine4" parent="." unique_id=1611162980 instance=ExtResource("5_qmv3x")]
+position = Vector2(523, -86)
+curve = SubResource("Curve2D_kul4i")
 
 [node name="CanvasLayer" parent="." unique_id=2140511235 instance=ExtResource("7_oomkl")]
