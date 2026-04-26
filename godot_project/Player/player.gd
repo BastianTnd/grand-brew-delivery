@@ -23,7 +23,8 @@ var has_filled_this_round = false
 var beer_visual: AnimatedSprite2D
 
 # --- Arrow Display ---
-@export var arrow_distance = 100.0 
+@export var arrow_max_distance = 150.0  # Pfeil weit weg (Standard)
+@export var arrow_min_distance = 30.0   # Pfeil ganz nah am Auto
 @export var arrow_size = 18.0      
 var current_arrow_color = Color.WHITE
 
@@ -40,18 +41,34 @@ func _ready():
 	_on_beer_level_changed(beer_level)
 
 func _draw():
-	var target_pos = _get_current_target_position()
+	var targets = _get_target_positions()
 	
-	if target_pos != Vector2.ZERO and not (is_refilling or is_unloading):
-		var direction = global_position.direction_to(target_pos)
-		var angle = direction.angle() - global_rotation
-		var arrow_center = Vector2(arrow_distance, 0).rotated(angle)
-		
-		var p1 = arrow_center + Vector2(arrow_size, 0).rotated(angle)
-		var p2 = arrow_center + Vector2(-arrow_size, -arrow_size/1.5).rotated(angle)
-		var p3 = arrow_center + Vector2(-arrow_size, arrow_size/1.5).rotated(angle)
-		
-		draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([current_arrow_color]))
+	if is_refilling or is_unloading:
+		return
+
+	for target_pos in targets:
+		if target_pos != Vector2.ZERO:
+			var dist = global_position.distance_to(target_pos)
+			var direction = global_position.direction_to(target_pos)
+			var angle = direction.angle() - global_rotation
+			
+			var d_clamped = clamp(dist, 0, 500)
+			
+			var dynamic_dist = remap(d_clamped, 0, 500, arrow_min_distance, arrow_max_distance)
+			
+			var dynamic_size = remap(d_clamped, 0, 500, arrow_size * 0.33, arrow_size)
+			
+			var alpha = remap(d_clamped, 0, 500, 0.3, 1.0)
+			var draw_color = current_arrow_color
+			draw_color.a = alpha
+
+			var arrow_center = Vector2(dynamic_dist, 0).rotated(angle)
+			
+			var p1 = arrow_center + Vector2(dynamic_size, 0).rotated(angle)
+			var p2 = arrow_center + Vector2(-dynamic_size, -dynamic_size/1.5).rotated(angle)
+			var p3 = arrow_center + Vector2(-dynamic_size, dynamic_size/1.5).rotated(angle)
+			
+			draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([draw_color]))
 
 func _physics_process(delta):
 	if crash_cooldown > 0: 
@@ -63,7 +80,6 @@ func _physics_process(delta):
 	var move_input = Input.get_axis("ui_down", "ui_up")
 	var turn = Input.get_axis("ui_left", "ui_right")
 	
-	# Car stands still while refilling or unloading
 	if is_refilling or is_unloading:
 		velocity = velocity.move_toward(Vector2.ZERO, 600 * delta)
 		move_input = 0
@@ -109,28 +125,28 @@ func apply_crash_penalty():
 		tween.tween_property(self, "modulate", Color.RED, 0.1)
 		tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 
-func _get_current_target_position() -> Vector2:
+func _get_target_positions() -> Array:
+	var targets = []
+	
 	if ScoreManager.items_collected < 3:
 		current_arrow_color = Color.YELLOW
 		var items = get_tree().get_nodes_in_group("collectibles")
-		if items.size() > 0:
-			var closest = items[0]
-			for item in items:
-				if global_position.distance_to(item.global_position) < global_position.distance_to(closest.global_position):
-					closest = item
-			return closest.global_position
+		for item in items:
+			targets.append(item.global_position)
 			
 	elif not has_filled_this_round:
 		current_arrow_color = Color.ORANGE
 		var station = get_tree().get_first_node_in_group("brewing_station")
-		if station: return station.global_position
+		if station: 
+			targets.append(station.global_position)
 		
 	else:
 		current_arrow_color = Color.GREEN
 		var bar = get_tree().get_first_node_in_group("bar")
-		if bar: return bar.global_position
+		if bar: 
+			targets.append(bar.global_position)
 		
-	return Vector2.ZERO
+	return targets
 
 func add_beer(amount):
 	is_refilling = true
