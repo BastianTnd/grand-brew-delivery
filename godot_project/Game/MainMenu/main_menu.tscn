@@ -1,6 +1,67 @@
 [gd_scene format=3 uid="uid://dgt0l04fc5n87"]
 
 [ext_resource type="Script" uid="uid://cr718xhxvb18p" path="res://Game/MainMenu/main_menu.gd" id="1_38cx4"]
+[ext_resource type="Texture2D" uid="uid://g5lxe1nduba6" path="res://Game/Titlescreen.png" id="2_8c8b4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s6luv"]
+draw_center = false
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p0buh"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.25490198)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_y18uc"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.25490198)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_052h3"]
+draw_center = false
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5g5lb"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.25490198)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_trxfs"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.25490198)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_57bh4"]
+draw_center = false
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_2lp7i"]
+bg_color = Color(0.09803922, 0.09803922, 0.09803922, 0.25490198)
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8c8b4"]
+bg_color = Color(0.0965974, 0.0965974, 0.0965974, 0.25490198)
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="MainMenu" type="Control" unique_id=622818383]
 layout_mode = 3
@@ -11,17 +72,11 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_38cx4")
 
-[node name="MarginContainerTitle" type="MarginContainer" parent="." unique_id=2110013862]
-layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-grow_horizontal = 2
-
-[node name="Title" type="Label" parent="MarginContainerTitle" unique_id=1452438040]
-layout_mode = 2
-theme_override_font_sizes/font_size = 100
-text = "Grand Brew Delivery"
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1085051402]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_8c8b4")
 
 [node name="MarginContainerButtons" type="MarginContainer" parent="." unique_id=1739954162]
 layout_mode = 1
@@ -42,27 +97,36 @@ layout_mode = 2
 size_flags_horizontal = 4
 theme_override_constants/separation = 20
 
-[node name="Play" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=1367522581]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Play"
+[node name="Play" type="Button" parent="." unique_id=1367522581]
+layout_mode = 0
+offset_left = 92.0
+offset_top = 252.0
+offset_right = 291.0
+offset_bottom = 451.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_s6luv")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_p0buh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_y18uc")
 
-[node name="HowToPlay" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=2014154106]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "How to Play"
+[node name="Credits" type="Button" parent="." unique_id=1556261744]
+layout_mode = 0
+offset_left = 426.0
+offset_top = 335.0
+offset_right = 626.0
+offset_bottom = 536.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_052h3")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_5g5lb")
+theme_override_styles/hover = SubResource("StyleBoxFlat_trxfs")
 
-[node name="Credits" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=1556261744]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Credits"
+[node name="HowToPlay" type="Button" parent="." unique_id=2014154106]
+layout_mode = 0
+offset_left = 738.0
+offset_top = 216.0
+offset_right = 945.0
+offset_bottom = 421.0
+theme_override_styles/normal = SubResource("StyleBoxFlat_57bh4")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_2lp7i")
+theme_override_styles/hover = SubResource("StyleBoxFlat_8c8b4")
 
-[node name="Quit" type="Button" parent="MarginContainerButtons/VBoxContainer" unique_id=652781529]
-layout_mode = 2
-theme_override_font_sizes/font_size = 50
-text = "Quit"
-
-[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Play" to="." method="_on_play_pressed"]
-[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/HowToPlay" to="." method="_on_how_to_play_pressed"]
-[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Credits" to="." method="_on_credits_pressed"]
-[connection signal="pressed" from="MarginContainerButtons/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="Play" to="." method="_on_play_pressed"]
+[connection signal="pressed" from="Credits" to="." method="_on_credits_pressed"]
+[connection signal="pressed" from="HowToPlay" to="." method="_on_how_to_play_pressed"]
