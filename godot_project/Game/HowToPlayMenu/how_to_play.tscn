@@ -1,6 +1,40 @@
 [gd_scene format=3 uid="uid://dustlfk6nfbuq"]
 
 [ext_resource type="Script" uid="uid://buduagtol513p" path="res://Game/HowToPlayMenu/how_to_play.gd" id="1_2gk6m"]
+[ext_resource type="Texture2D" uid="uid://g5lxe1nduba6" path="res://Game/Titlescreen.png" id="2_62jii"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62jii"]
+bg_color = Color(0.5294118, 0, 0.101960786, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xl2p1"]
+bg_color = Color(0.27450982, 0, 0.03529412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_g5o03"]
+bg_color = Color(0.27450982, 0, 0.03529412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="HowToPlay" type="Control" unique_id=622818383]
 layout_mode = 3
@@ -11,14 +45,29 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_2gk6m")
 
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1573903506]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_62jii")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=2030766407]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 970.0
+offset_bottom = 632.0
+color = Color(0.011764706, 0.011764706, 0.011764706, 0.8784314)
+
 [node name="MarginContainerTitle" type="MarginContainer" parent="." unique_id=1879498685]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -46.0
-offset_right = 46.0
-offset_bottom = 40.0
+offset_left = -172.0
+offset_top = 40.0
+offset_right = 256.0
+offset_bottom = 143.0
 grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerTitle" unique_id=1973912922]
@@ -35,6 +84,8 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
+offset_top = -219.5
+offset_bottom = 331.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -47,11 +98,17 @@ layout_mode = 2
 text = "Controls: Move your truck using the Arrow Keys ↑↓←→
 
 Objective:
+
 - Gather all 3 Ingredients (Malt, Hops, Yeast) and bring them to the Brewing Station.
+
 - The Brewing Station will fill up your Beer Container (respresented by the Beer Mug in the top right corner)
-- When Beer Mug is full, drive as fast as possible to the Bar to deliver it, but warch out for Buldings, Trees and Cars! Every crash will
+
+- When Beer Mug is full, drive as fast as possible to the Bar to deliver it,
+ but warch out for Buldings, Trees and Cars! Every crash will
   drain your Beer Container!
+
 - Try to deliver as much Beer as possible!!!
+
 - Hint: Arrows around your Truck are navigating you where you can find the Collectibles, Brewing Station and Bar."
 
 [node name="MarginContainerButton" type="MarginContainer" parent="." unique_id=1739954162]
@@ -61,9 +118,10 @@ anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5
 anchor_bottom = 1.0
-offset_left = -35.0
-offset_top = -40.0
-offset_right = 35.0
+offset_left = 408.0
+offset_top = -758.0
+offset_right = 483.0
+offset_bottom = -673.0
 grow_horizontal = 2
 grow_vertical = 0
 theme_override_constants/margin_bottom = 10
@@ -75,6 +133,9 @@ theme_override_constants/separation = 10
 [node name="GoBack" type="Button" parent="MarginContainerButton/VBoxContainer" unique_id=395769915]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
-text = "Go back"
+theme_override_styles/normal = SubResource("StyleBoxFlat_62jii")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_xl2p1")
+theme_override_styles/hover = SubResource("StyleBoxFlat_g5o03")
+text = "X"
 
 [connection signal="pressed" from="MarginContainerButton/VBoxContainer/GoBack" to="." method="_on_go_back_pressed"]
