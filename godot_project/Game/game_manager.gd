@@ -10,9 +10,23 @@ var spawn_points = {
 }
 
 func _ready():
+	spawn_player_car()
+	
 	spawn_items()
 	if ScoreManager:
 		ScoreManager.delivery_completed.connect(spawn_items)
+
+func spawn_player_car():
+	var car_to_spawn = Global.selected_car_path
+	var car_scene = load(car_to_spawn)
+	var car_instance = car_scene.instantiate()
+	
+	if has_node("SpawnPoint"):
+		car_instance.global_position = $SpawnPoint.global_position
+	else:
+		car_instance.global_position = Vector2(0, 0) 
+		
+	add_child(car_instance)
 
 func spawn_items():
 	var random_number_spawn_points = randi_range(1, 5)

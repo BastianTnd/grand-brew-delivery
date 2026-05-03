@@ -17,6 +17,7 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 [autoload]
 
 ScoreManager="*uid://bf67mmshowjrp"
+Global="*uid://o4voo4amoer6"
 
 [display]
 

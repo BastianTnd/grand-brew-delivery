@@ -2,7 +2,6 @@
 
 [ext_resource type="PackedScene" uid="uid://bvp0noy8wujyd" path="res://Map/map.tscn" id="1_1erje"]
 [ext_resource type="Script" uid="uid://egbw7oq2pqra" path="res://Game/game_manager.gd" id="1_oomkl"]
-[ext_resource type="PackedScene" uid="uid://b43n0r1ks3ath" path="res://Player/player.tscn" id="2_m22wp"]
 [ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_jcm6v"]
 [ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="5_fwxkx"]
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
@@ -31,8 +30,6 @@ script = ExtResource("1_oomkl")
 
 [node name="Map" parent="." unique_id=1676787412 instance=ExtResource("1_1erje")]
 
-[node name="Player" parent="." unique_id=282871353 instance=ExtResource("2_m22wp")]
-
 [node name="Bar" parent="." unique_id=423538003 instance=ExtResource("4_jcm6v")]
 position = Vector2(945, 1127)
 
@@ -55,3 +52,6 @@ position = Vector2(523, -86)
 curve = SubResource("Curve2D_kul4i")
 
 [node name="CanvasLayer" parent="." unique_id=2140511235 instance=ExtResource("7_oomkl")]
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1100828666]
+position = Vector2(42, -54)

@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bbptfxk3tp5yg"]
+
+[ext_resource type="PackedScene" uid="uid://b43n0r1ks3ath" path="res://Player/player.tscn" id="1_tg0nv"]
+[ext_resource type="Texture2D" uid="uid://cdxbuqctcr813" path="res://Sprites/porsche.png" id="2_x0nyb"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_b5lms"]
+radius = 13.571427
+height = 57.642853
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_h1mvj"]
+radius = 14.285713
+height = 57.142876
+
+[node name="Player" unique_id=282871353 instance=ExtResource("1_tg0nv")]
+engine_power = 420.0
+max_speed = 600.0
+max_speed_reverse = 140.0
+steering_angle_limit = 60.0
+friction = 0.991
+max_beer = 60.0
+
+[node name="Sprite2D" parent="." index="0" unique_id=1897074459]
+texture = ExtResource("2_x0nyb")
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1567269969]
+position = Vector2(-1.1920929e-07, 2.9802322e-08)
+shape = SubResource("CapsuleShape2D_b5lms")
+
+[node name="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(1171098915) index="0" unique_id=300668999]
+position = Vector2(-2.3841858e-07, -2.1316282e-14)
+shape = SubResource("CapsuleShape2D_h1mvj")
