@@ -18,6 +18,7 @@ config/features=PackedStringArray("4.6", "GL Compatibility")
 
 ScoreManager="*uid://bf67mmshowjrp"
 Global="*uid://o4voo4amoer6"
+SoundManager="*uid://dkhb5f8j0kh22"
 
 [display]
 

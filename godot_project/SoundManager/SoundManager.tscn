@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://dkhb5f8j0kh22"]
+
+[ext_resource type="Script" uid="uid://dwmov7ctnae5a" path="res://SoundManager/sound_manager.gd" id="1_raqhw"]
+[ext_resource type="AudioStream" uid="uid://byhi6owru67cm" path="res://SoundManager/SoundEffects/pickupCollectible.wav" id="2_vfvh5"]
+
+[node name="SoundManager" type="Node" unique_id=225962405]
+script = ExtResource("1_raqhw")
+collect_sound = ExtResource("2_vfvh5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=666404820]
