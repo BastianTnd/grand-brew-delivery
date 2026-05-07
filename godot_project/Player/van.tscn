@@ -2,4 +2,18 @@
 
 [ext_resource type="PackedScene" uid="uid://b43n0r1ks3ath" path="res://Player/player.tscn" id="1_cyg5e"]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cyg5e"]
+radius = 14.999999
+height = 72.85714
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_40irg"]
+radius = 14.285713
+height = 72.85714
+
 [node name="Player" unique_id=282871353 instance=ExtResource("1_cyg5e")]
+
+[node name="CollisionShape2D" parent="." index="1" unique_id=1567269969]
+shape = SubResource("CapsuleShape2D_cyg5e")
+
+[node name="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(1171098915) index="0" unique_id=300668999]
+shape = SubResource("CapsuleShape2D_40irg")
