@@ -24,6 +24,13 @@ offset_bottom = 190.0
 grow_horizontal = 2
 text = "Your Score: 0"
 
+[node name="NameInput" type="LineEdit" parent="." unique_id=743288760]
+offset_left = 478.0
+offset_top = 181.0
+offset_right = 546.5
+offset_bottom = 212.0
+max_length = 3
+
 [node name="RestartButton" type="Button" parent="." unique_id=592620627]
 anchors_preset = 8
 anchor_left = 0.5

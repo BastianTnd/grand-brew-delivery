@@ -52,7 +52,7 @@ func complete_delivery():
 
 func _trigger_end():
 	is_game_active = false
-	save_new_score(int(round(total_points)))
+	# Just switch scene, saving happens in GameOverScreen via user interaction
 	get_tree().change_scene_to_file("res://Game/GameOverScreen/GameOverScreen.tscn")
 
 func reset_game():
@@ -64,22 +64,31 @@ func reset_game():
 	time_left = game_time
 	is_game_active = false
 
+func save_new_score(score_value: int, player_name: String):
+	# Sanitize name: uppercase, trimmed, max 3 chars
+	var initials = player_name.to_upper().strip_edges().left(3)
+	if initials == "": initials = "???"
 
-func save_new_score(score_value: int):
-	var new_entry = {"score": score_value, "date": Time.get_date_string_from_system()}
-	highscores.append(new_entry)
+	var new_entry = {
+		"name": initials,
+		"score": score_value, 
+		"date": Time.get_date_string_from_system()
+	}
 	
+	highscores.append(new_entry)
+	# Sort: highest score first
 	highscores.sort_custom(func(a, b): return a["score"] > b["score"])
 	
-	if highscores.size() > 5:
-		highscores.resize(5)
+	# Limit list size to 10
+	if highscores.size() > 10:
+		highscores.resize(10)
 	
 	var file = FileAccess.open(highscore_file_path, FileAccess.WRITE)
 	if file:
 		var json_string = JSON.stringify(highscores)
 		file.store_string(json_string)
 		file.close()
-		print("Score lokal gespeichert!")
+		print("Successfully saved score for: ", initials)
 
 func load_highscores():
 	if not FileAccess.file_exists(highscore_file_path):
@@ -95,6 +104,4 @@ func load_highscores():
 		var error = json.parse(json_string)
 		if error == OK:
 			highscores = json.data
-			print("Highscores geladen: ", highscores)
-		else:
-			print("JSON Fehler beim Laden")
+			print("Highscores loaded successfully")
