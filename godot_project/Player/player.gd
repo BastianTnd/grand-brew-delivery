@@ -1,5 +1,10 @@
 extends CharacterBody2D
 
+# --- LOAD COLLECTIBLES ---
+var icon_malt = preload("res://Collectible/Sprites/malt.png")
+var icon_hops = preload("res://Collectible/Sprites/hops.png")
+var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
+
 signal beer_level_changed(new_value)
 
 # --- PHYSICS ---
@@ -7,7 +12,7 @@ signal beer_level_changed(new_value)
 @export var max_speed = 320.0          
 @export var max_speed_reverse = 110.0 
 @export var steering_angle_limit = 42.0 
-@export var friction = 0.993            
+@export var friction = 0.993           
 @export var braking_force = 2.5
 @export var drift_braking = 0.985       
 
@@ -25,7 +30,7 @@ var beer_visual: AnimatedSprite2D
 # --- Arrow Display Config ---
 @export var arrow_max_distance = 150.0
 @export var arrow_min_distance = 40.0
-@export var arrow_size = 18.0      
+@export var arrow_size = 22.0      
 var current_arrow_color = Color.WHITE
 
 func _ready():
@@ -48,13 +53,11 @@ func _physics_process(delta):
 		move_and_slide()
 		return
 
-	# Dynamisches Gewicht: Je mehr Bier, desto träger (0.8 bis 1.2 Multiplikator)
 	var weight_factor = remap(beer_level, 0, max_beer, 1.0, 1.3)
-
 	var speed = velocity.length()
+
 	if speed > 5 or move_input != 0:
 		var dir = -1.0 if velocity.dot(transform.x) < -5 else 1.0
-		# Lenkung wird schwerfälliger, wenn der Wagen voll beladen ist
 		var steer_speed_modifier = clamp(speed / max_speed, 0.5, 0.9) / weight_factor
 		rotation += steer_input * deg_to_rad(steering_angle_limit * 4.0) * delta * dir * steer_speed_modifier
 
@@ -62,7 +65,6 @@ func _physics_process(delta):
 		velocity += transform.x * (engine_power / weight_factor) * delta
 	elif move_input < 0:
 		if velocity.dot(transform.x) > 5:
-			# Bremsweg verlängert sich bei Beladung
 			velocity += transform.x * -engine_power * (braking_force / weight_factor) * delta 
 		else:
 			velocity += transform.x * -engine_power * 0.7 * delta 
@@ -72,11 +74,9 @@ func _physics_process(delta):
 	var forward_vel = transform.x * velocity.dot(transform.x)
 	var steering_intensity = abs(steer_input)
 	var speed_percentage = speed / max_speed
-	
 	var current_traction = 0.35 
 	
 	if speed_percentage > 0.7 and steering_intensity > 0.8:
-		# Schlittern wird durch Gewicht verstärkt (weniger Traction)
 		current_traction = 0.03 / weight_factor
 		velocity *= drift_braking
 	
@@ -101,30 +101,53 @@ func _draw():
 	var targets = _get_target_positions()
 	if is_refilling or is_unloading: return
 	
+	var correction = Color.WHITE
+	if modulate != Color.WHITE:
+		correction = Color.WHITE / modulate 
+
 	for target_pos in targets:
 		if target_pos != Vector2.ZERO:
 			var direction = global_position.direction_to(target_pos)
 			var angle = direction.angle() - global_rotation
 			var dist = global_position.distance_to(target_pos)
 			
-			if dist < 15.0:
-				continue
+			if dist < 20.0: continue
 				
-			var d_clamped = clamp(dist, 15, 500)
+			var d_clamped = clamp(dist, 20, 600)
+			var s = remap(d_clamped, 20, 600, 0.4, 1.2)
+			var d = remap(d_clamped, 20, 600, arrow_min_distance, arrow_max_distance)
 			
-			var s = remap(d_clamped, 0, 500, 0.3, 1.0)
-			var d = remap(d_clamped, 0, 500, arrow_min_distance, arrow_max_distance)
-			
-			var draw_color = current_arrow_color
-			draw_color.a = remap(d_clamped, 0, 500, 0.4, 1.0)
+			var arrow_final_color = current_arrow_color
+			arrow_final_color.a = remap(d_clamped, 20, 600, 0.5, 1.0)
+			arrow_final_color *= correction
 			
 			var arrow_center = Vector2(d, 0).rotated(angle)
 			
-			var p1 = arrow_center + Vector2(arrow_size * s, 0).rotated(angle)
-			var p2 = arrow_center + Vector2(-arrow_size * s, -arrow_size * s / 1.5).rotated(angle)
-			var p3 = arrow_center + Vector2(-arrow_size * s, arrow_size * s / 1.5).rotated(angle)
+			# --- 1. DRAW ARROW ---
+			var p1 = arrow_center + Vector2(arrow_size * s * 1.2, 0).rotated(angle)
+			var p2 = arrow_center + Vector2(-arrow_size * s * 0.8, -arrow_size * s * 0.5).rotated(angle)
+			var p3 = arrow_center + Vector2(-arrow_size * s * 0.8, arrow_size * s * 0.5).rotated(angle)
+			draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([arrow_final_color]))
+
+			# --- 2. FIND COLLECTIBLES ---
+			var current_icon = null
+			for item in get_tree().get_nodes_in_group("collectibles"):
+				if item.global_position.distance_to(target_pos) < 10:
+					if item.collectible == 0: current_icon = icon_malt
+					elif item.collectible == 1: current_icon = icon_hops
+					elif item.collectible == 2: current_icon = icon_yeast
 			
-			draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([draw_color]))
+			# --- 3. DRAW COLLECTIBLES ---
+			if current_icon:
+				var icon_size = Vector2(12, 12) * s 
+				var offset_dist = (arrow_size * s * 0.2)
+				var shifted_center = arrow_center + Vector2(offset_dist, 0).rotated(angle + PI)
+				
+				draw_set_transform(shifted_center, -global_rotation, Vector2.ONE)
+				
+				draw_texture_rect(current_icon, Rect2(-icon_size / 2, icon_size), false, correction)
+				
+				draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
 
 func apply_crash_logic():
 	if crash_cooldown <= 0:
@@ -148,8 +171,9 @@ func _on_beer_level_changed(new_value):
 func _get_target_positions() -> Array:
 	var targets = []
 	if ScoreManager.items_collected < 3:
-		current_arrow_color = Color.YELLOW
-		for item in get_tree().get_nodes_in_group("collectibles"): targets.append(item.global_position)
+		current_arrow_color = Color(0.9, 0.1, 0.15, 1.0) 
+		for item in get_tree().get_nodes_in_group("collectibles"): 
+			targets.append(item.global_position)
 	elif not has_filled_this_round:
 		current_arrow_color = Color.ORANGE
 		var station = get_tree().get_first_node_in_group("brewing_station")
