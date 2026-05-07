@@ -5,8 +5,6 @@ extends Area2D
 @export var collectible: collectible_type
 enum collectible_type {MALT, HOPS, YEAST}
 
-
-
 var malt_sprite = "res://Collectible/Sprites/Malt.png"
 var hops_sprite = "res://Collectible/Sprites/Hops.png"
 var yeast_sprite = "res://Collectible/Sprites/Yeast.png"
@@ -18,7 +16,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body.name == "Player":
 		SoundManager.play_collect_sound()
 		if ScoreManager:
-			ScoreManager.collect_item()
+			ScoreManager.collect_item(collectible)
 		self.queue_free()
 	
 func change_sprite() -> void:

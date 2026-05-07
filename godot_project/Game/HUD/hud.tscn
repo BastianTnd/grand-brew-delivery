@@ -6,6 +6,9 @@
 [ext_resource type="Texture2D" uid="uid://dq8oplkfamuco" path="res://Game/Beer_3.png" id="4_e1s58"]
 [ext_resource type="Texture2D" uid="uid://be7kskdm2308s" path="res://Game/Beer_4.png" id="5_1yp8c"]
 [ext_resource type="Texture2D" uid="uid://7rddksp6kxod" path="res://Game/Beer_5.png" id="6_b6lo0"]
+[ext_resource type="Texture2D" uid="uid://kmfxn8d5qt62" path="res://Collectible/Sprites/Malt.png" id="7_b6lo0"]
+[ext_resource type="Texture2D" uid="uid://2of83tlkadjc" path="res://Collectible/Sprites/Hops.png" id="8_i6281"]
+[ext_resource type="Texture2D" uid="uid://bsntr8q5yofyh" path="res://Collectible/Sprites/Yeast.png" id="9_ma6jr"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v1bms"]
 animations = [{
@@ -73,3 +76,21 @@ theme_override_constants/margin_right = 30
 position = Vector2(-5, 80)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_v1bms")
+
+[node name="IngredientContainer" type="HBoxContainer" parent="." unique_id=1875441254]
+offset_left = 160.0
+offset_top = 10.0
+offset_right = 264.0
+offset_bottom = 42.0
+
+[node name="MaltIcon" type="TextureRect" parent="IngredientContainer" unique_id=738759024]
+layout_mode = 2
+texture = ExtResource("7_b6lo0")
+
+[node name="HopsIcon" type="TextureRect" parent="IngredientContainer" unique_id=1617326635]
+layout_mode = 2
+texture = ExtResource("8_i6281")
+
+[node name="YeastIcon" type="TextureRect" parent="IngredientContainer" unique_id=1472580832]
+layout_mode = 2
+texture = ExtResource("9_ma6jr")

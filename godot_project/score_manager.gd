@@ -8,6 +8,10 @@ var total_points : float = 0.0
 var items_collected : int = 0 
 var time_left : float
 
+var has_malt : bool = false
+var has_hops : bool = false
+var has_yeast : bool = false
+
 var is_game_active : bool = false
 
 func _ready():
@@ -26,14 +30,20 @@ func start_game():
 	reset_game()
 	is_game_active = true
 
-func collect_item():
+func collect_item(type: int):
 	items_collected += 1
+	if type == 0: has_malt = true
+	elif type == 1: has_hops = true
+	elif type == 2: has_yeast = true
 
 func add_points(amount: float):
 	total_points += amount
 
 func complete_delivery():
 	items_collected = 0 
+	has_malt = false
+	has_hops = false
+	has_yeast = false
 	delivery_completed.emit() 
 
 func _trigger_end():
@@ -43,5 +53,8 @@ func _trigger_end():
 func reset_game():
 	total_points = 0.0
 	items_collected = 0
+	has_malt = false
+	has_hops = false
+	has_yeast = false
 	time_left = game_time
 	is_game_active = false
