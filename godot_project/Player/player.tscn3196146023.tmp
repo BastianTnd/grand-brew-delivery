@@ -24,12 +24,7 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_btcbx")
 color = Color(0.4149491, 0.4149491, 0.4149491, 1)
 
-[sub_resource type="Gradient" id="Gradient_4ntmi"]
-offsets = PackedFloat32Array(0.22131148, 1)
-colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
-
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_4ntmi"]
-gradient = SubResource("Gradient_4ntmi")
 
 [sub_resource type="Curve" id="Curve_btcbx"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -42,19 +37,31 @@ curve = SubResource("Curve_btcbx")
 particle_flag_disable_z = true
 direction = Vector3(-1, 0, 0)
 spread = 35.0
-initial_velocity_min = 150.0
-initial_velocity_max = 300.0
+initial_velocity_min = 250.0
+initial_velocity_max = 450.0
 gravity = Vector3(0, 0, 0)
 damping_min = 300.0
 damping_max = 300.0
 scale_min = 1.5
 scale_max = 2.5
 scale_curve = SubResource("CurveTexture_gwnis")
-color = Color(0.8153955, 0.36567903, 0, 1)
+color = Color(0.56028485, 0.15318252, 0, 1)
 color_ramp = SubResource("GradientTexture1D_4ntmi")
 
 [node name="Player" type="CharacterBody2D" unique_id=282871353]
 script = ExtResource("1_4ntmi")
+engine_power = null
+max_speed = null
+max_speed_reverse = null
+steering_angle_limit = null
+friction = null
+braking_force = null
+drift_braking = null
+max_beer = null
+unload_speed = null
+arrow_max_distance = null
+arrow_min_distance = null
+arrow_size = null
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897074459]
 rotation = 1.5707964
@@ -93,7 +100,8 @@ process_material = SubResource("ParticleProcessMaterial_gwnis")
 position = Vector2(-75, -16)
 emitting = false
 amount = 15
+lifetime = 0.8
 one_shot = true
-explosiveness = 0.8
+explosiveness = 1.0
 local_coords = true
 process_material = SubResource("ParticleProcessMaterial_4ntmi")

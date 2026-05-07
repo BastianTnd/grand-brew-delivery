@@ -1,11 +1,15 @@
 extends CharacterBody2D
 
+# --- PRELOADS ---
 var icon_malt = preload("res://Collectible/Sprites/malt.png")
 var icon_hops = preload("res://Collectible/Sprites/hops.png")
 var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
 
+@onready var impact_particles = $ImpactParticles
+
 signal beer_level_changed(new_value)
 
+# --- PHYSICS ---
 @export var engine_power = 150.0        
 @export var max_speed = 320.0          
 @export var max_speed_reverse = 110.0 
@@ -25,6 +29,7 @@ var is_unloading = false
 @export var unload_speed = 40.0
 var beer_visual: AnimatedSprite2D
 
+# --- Arrow Config ---
 @export var arrow_max_distance = 150.0
 @export var arrow_min_distance = 40.0
 @export var arrow_size = 22.0      
@@ -37,6 +42,9 @@ func _ready():
 		beer_visual = hud_node.find_child("BeerVisual", true) as AnimatedSprite2D
 	beer_level_changed.connect(_on_beer_level_changed)
 	_on_beer_level_changed(beer_level)
+	
+	if impact_particles: 
+		impact_particles.emitting = false
 
 func _physics_process(delta):
 	if crash_cooldown > 0: crash_cooldown -= delta
@@ -85,12 +93,18 @@ func _physics_process(delta):
 	if velocity.length() > max_speed:
 		velocity = velocity.limit_length(max_speed)
 
+	# --- COLLISION & PARTICLE-LOGIC ---
 	var speed_before = velocity.length()
 	var collided = move_and_slide()
 	
 	if collided:
 		var collision = get_last_slide_collision()
 		if collision:
+			if impact_particles:
+				impact_particles.global_position = collision.get_position()
+				impact_particles.rotation = collision.get_normal().angle()
+				impact_particles.emitting = true
+			
 			var wall_normal = collision.get_normal()
 			var slide_velocity = velocity.slide(wall_normal)
 			if slide_velocity.length() > 0:
