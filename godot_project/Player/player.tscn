@@ -3,11 +3,15 @@
 [ext_resource type="Script" uid="uid://cijv1s6b41qpo" path="res://Player/player.gd" id="1_4ntmi"]
 [ext_resource type="Texture2D" uid="uid://b8n05jrh4p0wl" path="res://Sprites/car-truck4.png" id="2_btcbx"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvfyp"]
-size = Vector2(29, 69)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
-size = Vector2(29, 68)
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_btcbx"]
+particle_flag_disable_z = true
+spread = 40.0
+initial_velocity_min = 60.0
+initial_velocity_max = 120.0
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 4.0
+color = Color(0, 0.78235406, 0.3652722, 1)
 
 [sub_resource type="Curve" id="Curve_4ntmi"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
@@ -23,6 +27,12 @@ initial_velocity_max = 20.0
 gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_btcbx")
 color = Color(0.4149491, 0.4149491, 0.4149491, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvfyp"]
+size = Vector2(29, 69)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
+size = Vector2(29, 68)
 
 [sub_resource type="Gradient" id="Gradient_4ntmi"]
 offsets = PackedFloat32Array(0.22131148, 1)
@@ -56,6 +66,18 @@ color_ramp = SubResource("GradientTexture1D_4ntmi")
 [node name="Player" type="CharacterBody2D" unique_id=282871353]
 script = ExtResource("1_4ntmi")
 
+[node name="GrassParticles" type="GPUParticles2D" parent="." unique_id=1811273299]
+position = Vector2(-17, 0)
+rotation = -3.1415925
+amount = 15
+process_material = SubResource("ParticleProcessMaterial_btcbx")
+
+[node name="FumeParticles" type="GPUParticles2D" parent="." unique_id=534327711]
+position = Vector2(-25, -6)
+rotation = -3.1415925
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_gwnis")
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1897074459]
 rotation = 1.5707964
 scale = Vector2(0.7, 0.7)
@@ -82,12 +104,6 @@ position = Vector2(0.5, 1)
 rotation = 1.5707964
 scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_4ntmi")
-
-[node name="FumeParticles" type="GPUParticles2D" parent="." unique_id=534327711]
-position = Vector2(-25, -6)
-rotation = 3.1415927
-amount = 20
-process_material = SubResource("ParticleProcessMaterial_gwnis")
 
 [node name="ImpactParticles" type="GPUParticles2D" parent="." unique_id=1782794476]
 position = Vector2(-75, -16)

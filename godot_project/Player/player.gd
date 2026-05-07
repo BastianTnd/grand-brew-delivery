@@ -5,11 +5,16 @@ var icon_malt = preload("res://Collectible/Sprites/malt.png")
 var icon_hops = preload("res://Collectible/Sprites/hops.png")
 var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
 
+# --- PARTICLE REFERENCES ---
 @onready var impact_particles = $ImpactParticles
+@onready var grass_particles = $GrassParticles
+
+# --- TILEMAP REFERENCE ---
+@onready var grass_layer = get_tree().get_first_node_in_group("level_map")
 
 signal beer_level_changed(new_value)
 
-# --- PHYSICS ---
+# --- PHYSICS CONFIGURATION ---
 @export var engine_power = 150.0        
 @export var max_speed = 320.0          
 @export var max_speed_reverse = 110.0 
@@ -18,6 +23,7 @@ signal beer_level_changed(new_value)
 @export var braking_force = 2.5
 @export var drift_braking = 0.985       
 
+var speed_modifier = 1.0  # 1.0 = Normal, < 1.0 = Slowed down
 var crash_cooldown = 0.0 
 var crash_counter = 0 
 var beer_level = 0.0
@@ -29,53 +35,68 @@ var is_unloading = false
 @export var unload_speed = 40.0
 var beer_visual: AnimatedSprite2D
 
-# --- Arrow Config ---
+# --- ARROW CONFIGURATION ---
 @export var arrow_max_distance = 150.0
 @export var arrow_min_distance = 40.0
 @export var arrow_size = 22.0      
 var current_arrow_color = Color.WHITE
 
 func _ready():
+	# Wait for the first frame to ensure all nodes are loaded
 	await get_tree().process_frame
 	var hud_node = get_tree().get_first_node_in_group("hud")
 	if hud_node:
 		beer_visual = hud_node.find_child("BeerVisual", true) as AnimatedSprite2D
+	
 	beer_level_changed.connect(_on_beer_level_changed)
 	_on_beer_level_changed(beer_level)
 	
-	if impact_particles: 
-		impact_particles.emitting = false
+	# Initial state for particles
+	if impact_particles: impact_particles.emitting = false
+	if grass_particles: grass_particles.emitting = false
 
 func _physics_process(delta):
+	# Handle cooldowns and unloading state
 	if crash_cooldown > 0: crash_cooldown -= delta
 	if is_unloading: process_unloading(delta)
 
+	# Get input axes
 	var move_input = Input.get_axis("ui_down", "ui_up")
 	var steer_input = Input.get_axis("ui_left", "ui_right")
 	
+	# Stop movement if refilling or unloading
 	if is_refilling or is_unloading:
 		velocity = velocity.move_toward(Vector2.ZERO, 500 * delta)
 		move_and_slide()
+		if grass_particles: grass_particles.emitting = false
 		return
 
+	# --- GRASS & SPEED MODIFIER LOGIC ---
+	_handle_grass_logic(velocity.length())
+
+	# --- DRIVING PHYSICS ---
 	var weight_factor = remap(beer_level, 0, max_beer, 1.0, 1.3)
 	var speed = velocity.length()
 
+	# Steering logic
 	if speed > 5 or move_input != 0:
 		var dir = -1.0 if velocity.dot(transform.x) < -5 else 1.0
 		var steer_speed_modifier = clamp(speed / max_speed, 0.5, 0.9) / weight_factor
 		rotation += steer_input * deg_to_rad(steering_angle_limit * 4.0) * delta * dir * steer_speed_modifier
 
+	# Acceleration (speed_modifier affects power)
 	if move_input > 0:
-		velocity += transform.x * (engine_power / weight_factor) * delta
+		velocity += transform.x * (engine_power * speed_modifier / weight_factor) * delta
 	elif move_input < 0:
+		# Braking or reversing
 		if velocity.dot(transform.x) > 5:
 			velocity += transform.x * -engine_power * (braking_force / weight_factor) * delta 
 		else:
-			velocity += transform.x * -engine_power * 0.7 * delta 
+			velocity += transform.x * -engine_power * 0.7 * speed_modifier * delta 
 
 	velocity *= friction 
 
+	# Drift and Traction logic
 	var forward_vel = transform.x * velocity.dot(transform.x)
 	var steering_intensity = abs(steer_input)
 	var speed_percentage = speed / max_speed
@@ -90,33 +111,64 @@ func _physics_process(delta):
 		
 	velocity = lerp(velocity, forward_vel, current_traction)
 
-	if velocity.length() > max_speed:
-		velocity = velocity.limit_length(max_speed)
+	# Speed Limit (speed_modifier caps the max_speed)
+	var current_max = max_speed * speed_modifier
+	if velocity.length() > current_max:
+		velocity = velocity.limit_length(current_max)
 
-	# --- COLLISION & PARTICLE-LOGIC ---
+	# --- COLLISION HANDLING ---
 	var speed_before = velocity.length()
 	var collided = move_and_slide()
 	
 	if collided:
 		var collision = get_last_slide_collision()
 		if collision:
+			# Activate spark particles at collision point
 			if impact_particles:
 				impact_particles.global_position = collision.get_position()
 				impact_particles.rotation = collision.get_normal().angle()
 				impact_particles.emitting = true
 			
+			# Bounce/Slide physics
 			var wall_normal = collision.get_normal()
 			var slide_velocity = velocity.slide(wall_normal)
 			if slide_velocity.length() > 0:
 				velocity = slide_velocity.normalized() * (speed_before * 0.8)
 
+	# Apply damage logic on impact
 	if collided and speed_before > 180:
 		if has_filled_this_round and beer_level > 0:
 			apply_crash_logic()
 	
 	queue_redraw()
 
+func _handle_grass_logic(speed):
+	if not grass_particles: return
+	
+	# Fetch the TileMapLayer if reference is null
+	if not grass_layer:
+		grass_layer = get_tree().get_first_node_in_group("level_map")
+	
+	var on_grass = false
+	if grass_layer:
+		# Convert global position to map coordinates
+		var local_pos = grass_layer.to_local(global_position)
+		var tile_pos = grass_layer.local_to_map(local_pos)
+		var data = grass_layer.get_cell_tile_data(tile_pos)
+		
+		# Check custom data for "grass" type
+		if data and data.get_custom_data("type") == "grass":
+			on_grass = true
+	
+	if on_grass:
+		speed_modifier = 0.5
+		grass_particles.emitting = speed > 40
+	else:
+		speed_modifier = 1.0
+		grass_particles.emitting = false
+
 func _draw():
+	# Drawing navigation arrows
 	var targets = _get_target_positions()
 	if is_refilling or is_unloading: return
 	
@@ -131,7 +183,6 @@ func _draw():
 			var dist = global_position.distance_to(target_pos)
 			
 			if dist < 20.0: continue
-				
 			var d_clamped = clamp(dist, 20, 600)
 			var s = remap(d_clamped, 20, 600, 0.4, 1.2)
 			var d = remap(d_clamped, 20, 600, arrow_min_distance, arrow_max_distance)
@@ -141,29 +192,13 @@ func _draw():
 			arrow_final_color *= correction
 			
 			var arrow_center = Vector2(d, 0).rotated(angle)
-			
 			var p1 = arrow_center + Vector2(arrow_size * s * 1.2, 0).rotated(angle)
 			var p2 = arrow_center + Vector2(-arrow_size * s * 0.8, -arrow_size * s * 0.5).rotated(angle)
 			var p3 = arrow_center + Vector2(-arrow_size * s * 0.8, arrow_size * s * 0.5).rotated(angle)
 			draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([arrow_final_color]))
 
-			var current_icon = null
-			for item in get_tree().get_nodes_in_group("collectibles"):
-				if item.global_position.distance_to(target_pos) < 10:
-					if item.collectible == 0: current_icon = icon_malt
-					elif item.collectible == 1: current_icon = icon_hops
-					elif item.collectible == 2: current_icon = icon_yeast
-			
-			if current_icon:
-				var icon_size = Vector2(12, 12) * s 
-				var offset_dist = (arrow_size * s * 0.2)
-				var shifted_center = arrow_center + Vector2(offset_dist, 0).rotated(angle + PI)
-				
-				draw_set_transform(shifted_center, -global_rotation, Vector2.ONE)
-				draw_texture_rect(current_icon, Rect2(-icon_size / 2, icon_size), false, correction)
-				draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
-
 func apply_crash_logic():
+	# Visual feedback for crash and beer loss
 	if crash_cooldown <= 0:
 		crash_counter += 1
 		crash_cooldown = 1.0
@@ -174,26 +209,24 @@ func apply_crash_logic():
 			crash_counter = 0
 			beer_level = clamp(beer_level - (max_beer * 0.20), 0.0, max_beer)
 			beer_level_changed.emit(beer_level)
-			var loss_tween = create_tween()
-			loss_tween.tween_property(self, "modulate", Color.RED, 0.1)
-			loss_tween.tween_property(self, "modulate", Color.WHITE, 0.1)
 
 func _on_beer_level_changed(new_value):
+	# Update HUD visual
 	if beer_visual:
 		beer_visual.frame = clampi(int(round(new_value / 25.0)), 0, 4)
 
 func _get_target_positions() -> Array:
 	var targets = []
 	if ScoreManager.items_collected < 3:
-		current_arrow_color = Color(0.9, 0.1, 0.15, 1.0) 
+		current_arrow_color = Color(0.9, 0.1, 0.15, 1.0) # Red for items
 		for item in get_tree().get_nodes_in_group("collectibles"): 
 			targets.append(item.global_position)
 	elif not has_filled_this_round:
-		current_arrow_color = Color.ORANGE
+		current_arrow_color = Color.ORANGE # Orange for brewing station
 		var station = get_tree().get_first_node_in_group("brewing_station")
 		if station: targets.append(station.global_position)
 	else:
-		current_arrow_color = Color.GREEN
+		current_arrow_color = Color.GREEN # Green for bar
 		var bar = get_tree().get_first_node_in_group("bar")
 		if bar: targets.append(bar.global_position)
 	return targets
