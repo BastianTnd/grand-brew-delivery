@@ -9,6 +9,21 @@ size = Vector2(29, 69)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
 size = Vector2(29, 68)
 
+[sub_resource type="Curve" id="Curve_4ntmi"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_btcbx"]
+curve = SubResource("Curve_4ntmi")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_gwnis"]
+particle_flag_disable_z = true
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+gravity = Vector3(0, 0, 0)
+scale_curve = SubResource("CurveTexture_btcbx")
+color = Color(0.4149491, 0.4149491, 0.4149491, 1)
+
 [node name="Player" type="CharacterBody2D" unique_id=282871353]
 script = ExtResource("1_4ntmi")
 
@@ -38,3 +53,9 @@ position = Vector2(0.5, 1)
 rotation = 1.5707964
 scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_4ntmi")
+
+[node name="TrailParticles" type="GPUParticles2D" parent="." unique_id=534327711]
+position = Vector2(-25, -6)
+rotation = 3.1415927
+amount = 20
+process_material = SubResource("ParticleProcessMaterial_gwnis")

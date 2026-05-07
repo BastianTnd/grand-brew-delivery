@@ -1,13 +1,11 @@
 extends CharacterBody2D
 
-# --- LOAD COLLECTIBLES ---
 var icon_malt = preload("res://Collectible/Sprites/malt.png")
 var icon_hops = preload("res://Collectible/Sprites/hops.png")
 var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
 
 signal beer_level_changed(new_value)
 
-# --- PHYSICS ---
 @export var engine_power = 150.0        
 @export var max_speed = 320.0          
 @export var max_speed_reverse = 110.0 
@@ -27,7 +25,6 @@ var is_unloading = false
 @export var unload_speed = 40.0
 var beer_visual: AnimatedSprite2D
 
-# --- Arrow Display Config ---
 @export var arrow_max_distance = 150.0
 @export var arrow_min_distance = 40.0
 @export var arrow_size = 22.0      
@@ -91,6 +88,14 @@ func _physics_process(delta):
 	var speed_before = velocity.length()
 	var collided = move_and_slide()
 	
+	if collided:
+		var collision = get_last_slide_collision()
+		if collision:
+			var wall_normal = collision.get_normal()
+			var slide_velocity = velocity.slide(wall_normal)
+			if slide_velocity.length() > 0:
+				velocity = slide_velocity.normalized() * (speed_before * 0.8)
+
 	if collided and speed_before > 180:
 		if has_filled_this_round and beer_level > 0:
 			apply_crash_logic()
@@ -123,13 +128,11 @@ func _draw():
 			
 			var arrow_center = Vector2(d, 0).rotated(angle)
 			
-			# --- 1. DRAW ARROW ---
 			var p1 = arrow_center + Vector2(arrow_size * s * 1.2, 0).rotated(angle)
 			var p2 = arrow_center + Vector2(-arrow_size * s * 0.8, -arrow_size * s * 0.5).rotated(angle)
 			var p3 = arrow_center + Vector2(-arrow_size * s * 0.8, arrow_size * s * 0.5).rotated(angle)
 			draw_polygon(PackedVector2Array([p1, p2, p3]), PackedColorArray([arrow_final_color]))
 
-			# --- 2. FIND COLLECTIBLES ---
 			var current_icon = null
 			for item in get_tree().get_nodes_in_group("collectibles"):
 				if item.global_position.distance_to(target_pos) < 10:
@@ -137,16 +140,13 @@ func _draw():
 					elif item.collectible == 1: current_icon = icon_hops
 					elif item.collectible == 2: current_icon = icon_yeast
 			
-			# --- 3. DRAW COLLECTIBLES ---
 			if current_icon:
 				var icon_size = Vector2(12, 12) * s 
 				var offset_dist = (arrow_size * s * 0.2)
 				var shifted_center = arrow_center + Vector2(offset_dist, 0).rotated(angle + PI)
 				
 				draw_set_transform(shifted_center, -global_rotation, Vector2.ONE)
-				
 				draw_texture_rect(current_icon, Rect2(-icon_size / 2, icon_size), false, correction)
-				
 				draw_set_transform(Vector2.ZERO, 0, Vector2.ONE)
 
 func apply_crash_logic():
