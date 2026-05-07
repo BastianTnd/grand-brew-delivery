@@ -145,7 +145,7 @@ func _physics_process(delta):
 func _handle_grass_logic(speed):
 	if not grass_particles: return
 	
-	# Fetch the TileMapLayer if reference is null
+	# Fetch the TileMapLayer if reference is null 
 	if not grass_layer:
 		grass_layer = get_tree().get_first_node_in_group("level_map")
 	
