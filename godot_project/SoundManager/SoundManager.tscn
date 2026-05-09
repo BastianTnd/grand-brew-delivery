@@ -2,9 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dwmov7ctnae5a" path="res://SoundManager/sound_manager.gd" id="1_raqhw"]
 [ext_resource type="AudioStream" uid="uid://byhi6owru67cm" path="res://SoundManager/SoundEffects/pickupCollectible.wav" id="2_vfvh5"]
+[ext_resource type="AudioStream" uid="uid://cv7l1t10a2nlc" path="res://SoundManager/SoundEffects/car_crash.mp3" id="3_raj45"]
+[ext_resource type="AudioStream" uid="uid://dbjlek202amnq" path="res://SoundManager/SoundEffects/grass_sound.mp3" id="4_uuxfd"]
 
 [node name="SoundManager" type="Node" unique_id=225962405]
 script = ExtResource("1_raqhw")
 collect_sound = ExtResource("2_vfvh5")
+crash_sound = ExtResource("3_raj45")
+grass_sound = ExtResource("4_uuxfd")
 
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=666404820]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1190892656]

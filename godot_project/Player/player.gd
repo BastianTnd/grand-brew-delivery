@@ -119,6 +119,7 @@ func _physics_process(delta):
 			velocity = slide_vel.normalized() * (speed_before * 0.8)
 
 	if collided and speed_before > 180:
+		SoundManager.play_crash_sound()
 		if has_filled_this_round and beer_level > 0:
 			apply_crash_logic()
 	
@@ -137,6 +138,7 @@ func _handle_grass_logic(speed):
 			on_grass = true
 	
 	if on_grass:
+		SoundManager.play_grass_sound()
 		speed_modifier = 0.4 
 		if grass_particles: grass_particles.emitting = speed > 40
 	else:
