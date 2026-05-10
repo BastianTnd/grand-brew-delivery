@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cp06gnphp2cvs"]
+
+[ext_resource type="Script" uid="uid://dchnuwm4m8k3v" path="res://Map/map_generator.gd" id="1_kw6vf"]
+[ext_resource type="PackedScene" uid="uid://b4fmsqddavqcr" path="res://Map/MapChunks/intersection.tscn" id="2_6g36d"]
+[ext_resource type="PackedScene" uid="uid://40172xut7knl" path="res://Map/MapChunks/vertical_street.tscn" id="3_o416a"]
+[ext_resource type="PackedScene" uid="uid://b68113ygk7vky" path="res://Map/MapChunks/horizontal_street.tscn" id="4_80bgv"]
+[ext_resource type="PackedScene" uid="uid://dp775vprvd2jy" path="res://Map/MapChunks/brewing_station_map.tscn" id="5_6g36d"]
+[ext_resource type="PackedScene" uid="uid://cc4bm622x1ef1" path="res://Map/MapChunks/bar_vertical.tscn" id="6_80bgv"]
+[ext_resource type="PackedScene" uid="uid://gt1yay767kq5" path="res://Map/MapChunks/bar_horizontal.tscn" id="7_3uksn"]
+
+[node name="Map_New" type="Node2D" unique_id=1676787412]
+script = ExtResource("1_kw6vf")
+chunk_scenes = {
+"BAR_H": ExtResource("7_3uksn"),
+"BAR_V": ExtResource("6_80bgv"),
+"BREW": ExtResource("5_6g36d"),
+"H": ExtResource("4_80bgv"),
+"I": ExtResource("2_6g36d"),
+"V": ExtResource("3_o416a")
+}

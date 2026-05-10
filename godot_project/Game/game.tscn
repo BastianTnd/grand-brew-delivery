@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://ttbx6s2tnmnb"]
 
-[ext_resource type="PackedScene" uid="uid://bvp0noy8wujyd" path="res://Map/map.tscn" id="1_1erje"]
 [ext_resource type="Script" uid="uid://egbw7oq2pqra" path="res://Game/game_manager.gd" id="1_oomkl"]
-[ext_resource type="PackedScene" uid="uid://bfkkj6ddnv3qi" path="res://Bar/bar.tscn" id="4_jcm6v"]
-[ext_resource type="PackedScene" uid="uid://dx3y7jt5plp2d" path="res://BrewingStation/brewing_station.tscn" id="5_fwxkx"]
+[ext_resource type="PackedScene" uid="uid://cp06gnphp2cvs" path="res://MapGenerated/map_new.tscn" id="2_qmv3x"]
 [ext_resource type="PackedScene" uid="uid://58m1ibhbsjtt" path="res://NPCs/CarNPCs/car_routine.tscn" id="5_qmv3x"]
 [ext_resource type="PackedScene" uid="uid://di2uirwf3eamg" path="res://Game/HUD/hud.tscn" id="7_oomkl"]
 
@@ -28,13 +26,7 @@ point_count = 12
 [node name="Game" type="Node2D" unique_id=916570660]
 script = ExtResource("1_oomkl")
 
-[node name="Map" parent="." unique_id=1676787412 instance=ExtResource("1_1erje")]
-
-[node name="Bar" parent="." unique_id=423538003 instance=ExtResource("4_jcm6v")]
-position = Vector2(945, 1127)
-
-[node name="BrewingStation" parent="." unique_id=1836337703 instance=ExtResource("5_fwxkx")]
-position = Vector2(-960, -71)
+[node name="Map_New" parent="." unique_id=1676787412 instance=ExtResource("2_qmv3x")]
 
 [node name="CarRoutine" parent="." unique_id=1949011404 instance=ExtResource("5_qmv3x")]
 position = Vector2(87, 96)

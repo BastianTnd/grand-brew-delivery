@@ -90,10 +90,6 @@ scale = Vector2(0.7, 0.7)
 shape = SubResource("RectangleShape2D_hvfyp")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=229678205]
-limit_left = -1000
-limit_top = -110
-limit_right = 980
-limit_bottom = 1400
 limit_smoothed = true
 position_smoothing_enabled = true
 

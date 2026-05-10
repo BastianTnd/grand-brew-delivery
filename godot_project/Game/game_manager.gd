@@ -31,7 +31,6 @@ func spawn_player_car():
 func spawn_items():
 	var random_number_spawn_points = randi_range(1, 5)
 	var collectible_spawn_points = spawn_points[random_number_spawn_points]
-	print("Spawn Punkte: ", collectible_spawn_points)
 	
 	var types = [Collectible.collectible_type.MALT, Collectible.collectible_type.HOPS, Collectible.collectible_type.YEAST]
 	
