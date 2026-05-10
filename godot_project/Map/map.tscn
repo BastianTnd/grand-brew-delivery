@@ -510,6 +510,8 @@ tile_data = PackedInt32Array(0, 524288, 3, 65536, 524288, 5, 131072, 1048576, 4,
 [sub_resource type="TileMapPattern" id="TileMapPattern_86j4t"]
 tile_data = PackedInt32Array(0, 0, 3, 65536, 0, 4, 131072, 0, 4, 196608, 0, 5, 262144, 1114112, 2, 327680, 1114112, 6, 393216, 1114112, 2, 458752, 1114112, 6, 524288, 1114112, 3, 1, 65536, 3, 65537, 196608, 3, 131073, 196608, 4, 196609, 65536, 5, 262145, 1179648, 2, 327681, 1179648, 6, 393217, 1179648, 2, 458753, 1179648, 6, 524289, 851968, 9, 2, 65536, 3, 65538, 262144, 3, 131074, 262144, 4, 196610, 65536, 5, 262146, 1179648, 2, 327682, 1179648, 6, 393218, 1179648, 2, 458754, 1179648, 6, 524290, 851968, 9, 3, 131072, 3, 65539, 131072, 4, 131075, 131072, 4, 196611, 131072, 5, 262147, 1245184, 2, 327683, 1245184, 6, 393219, 1245184, 2, 458755, 1245184, 6, 524291, 1245184, 3)
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ro55w"]
+
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_6yc6o"]
 texture = ExtResource("2_njngi")
 separation = Vector2i(1, 1)
@@ -1142,6 +1144,8 @@ separation = Vector2i(1, 1)
 
 [sub_resource type="TileSet" id="TileSet_86j4t"]
 physics_layer_0/collision_layer = 1
+physics_layer_0/collision_priority = 0.05
+physics_layer_0/physics_material = SubResource("PhysicsMaterial_ro55w")
 custom_data_layer_0/name = "type"
 custom_data_layer_0/type = 4
 sources/0 = SubResource("TileSetAtlasSource_6yc6o")
