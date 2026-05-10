@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dustlfk6nfbuq"]
 
 [ext_resource type="Script" uid="uid://buduagtol513p" path="res://Game/HowToPlayMenu/how_to_play.gd" id="1_2gk6m"]
-[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitlescreenNew3Buttons.png" id="2_62jii"]
+[ext_resource type="Texture2D" uid="uid://qkksgnfkytsb" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsHowToPlay.png" id="2_62jii"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62jii"]
 bg_color = Color(0.5294118, 0, 0.101960786, 1)

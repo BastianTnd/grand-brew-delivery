@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://bqnvtm4s8icf2"]
 
 [ext_resource type="Script" uid="uid://d11yn4eadl2af" path="res://Game/GameOverScreen/game_over_screen.gd" id="1_klnik"]
-[ext_resource type="Texture2D" uid="uid://ccvble6624v35" path="res://Game/EndScreen.png" id="2_8klc0"]
+[ext_resource type="Texture2D" uid="uid://ccvble6624v35" path="res://Game/EndScreensPictures/EndScreen.png" id="2_8klc0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o8xg6"]
 draw_center = false
@@ -48,7 +48,7 @@ corner_radius_bottom_left = 100
 [node name="GameOverScreen" type="CanvasLayer" unique_id=1749338835]
 script = ExtResource("1_klnik")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=1549492625]
+[node name="Background" type="TextureRect" parent="." unique_id=1549492625]
 offset_right = 1024.0
 offset_bottom = 771.0
 texture = ExtResource("2_8klc0")
