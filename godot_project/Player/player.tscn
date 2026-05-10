@@ -28,11 +28,13 @@ gravity = Vector3(0, 0, 0)
 scale_curve = SubResource("CurveTexture_btcbx")
 color = Color(0.4149491, 0.4149491, 0.4149491, 1)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_hvfyp"]
-size = Vector2(29, 69)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4ntmi"]
+radius = 13.571427
+height = 67.14285
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4ntmi"]
-size = Vector2(29, 68)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btcbx"]
+radius = 12.8571415
+height = 67.14285
 
 [sub_resource type="Gradient" id="Gradient_4ntmi"]
 offsets = PackedFloat32Array(0.22131148, 1)
@@ -64,6 +66,7 @@ color = Color(0.8153955, 0.36567903, 0, 1)
 color_ramp = SubResource("GradientTexture1D_4ntmi")
 
 [node name="Player" type="CharacterBody2D" unique_id=282871353]
+safe_margin = 0.18
 script = ExtResource("1_4ntmi")
 
 [node name="GrassParticles" type="GPUParticles2D" parent="." unique_id=1811273299]
@@ -87,7 +90,7 @@ texture = ExtResource("2_btcbx")
 position = Vector2(0.5, 0.5)
 rotation = 1.5707964
 scale = Vector2(0.7, 0.7)
-shape = SubResource("RectangleShape2D_hvfyp")
+shape = SubResource("CapsuleShape2D_4ntmi")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=229678205]
 limit_left = -1000
@@ -103,7 +106,7 @@ position_smoothing_enabled = true
 position = Vector2(0.5, 1)
 rotation = 1.5707964
 scale = Vector2(0.7, 0.7)
-shape = SubResource("RectangleShape2D_4ntmi")
+shape = SubResource("CapsuleShape2D_btcbx")
 
 [node name="ImpactParticles" type="GPUParticles2D" parent="." unique_id=1782794476]
 position = Vector2(-75, -16)

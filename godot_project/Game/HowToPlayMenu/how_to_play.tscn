@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dustlfk6nfbuq"]
 
 [ext_resource type="Script" uid="uid://buduagtol513p" path="res://Game/HowToPlayMenu/how_to_play.gd" id="1_2gk6m"]
-[ext_resource type="Texture2D" uid="uid://g5lxe1nduba6" path="res://Game/Titlescreen.png" id="2_62jii"]
+[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitlescreenNew3Buttons.png" id="2_62jii"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62jii"]
 bg_color = Color(0.5294118, 0, 0.101960786, 1)
@@ -76,7 +76,7 @@ layout_mode = 2
 [node name="Title" type="Label" parent="MarginContainerTitle/VBoxContainer" unique_id=1436411205]
 layout_mode = 2
 theme_override_font_sizes/font_size = 75
-text = "How to Play"
+text = "How to play!"
 
 [node name="MarginContainerExplanation" type="MarginContainer" parent="." unique_id=1958452869]
 layout_mode = 1
