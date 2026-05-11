@@ -1,7 +1,7 @@
 class_name MapGenerator
 extends Node2D
 
-@export var _dimensions: Vector2i = Vector2i(11, 9) 
+@export var _dimensions: Vector2i = Vector2i(9, 7) 
 @export var block_size: int = 256
 @export var number_of_bars: int = 4
 
