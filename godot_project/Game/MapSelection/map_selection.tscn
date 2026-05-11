@@ -87,11 +87,13 @@ icon = ExtResource("2_235ck")
 
 [node name="GeneratedMap" type="Button" parent="." unique_id=1353931837]
 layout_mode = 0
-offset_left = 736.0
-offset_top = 392.0
-offset_right = 779.0
-offset_bottom = 423.0
-text = "New"
+offset_left = 633.0
+offset_top = 293.0
+offset_right = 888.0
+offset_bottom = 519.0
+theme_override_fonts/font = ExtResource("3_evfsq")
+theme_override_font_sizes/font_size = 120
+text = "???"
 
 [node name="Label" type="Label" parent="." unique_id=1863648390]
 layout_mode = 0
