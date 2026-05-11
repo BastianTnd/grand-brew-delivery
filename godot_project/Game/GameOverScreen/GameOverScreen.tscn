@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d11yn4eadl2af" path="res://Game/GameOverScreen/game_over_screen.gd" id="1_klnik"]
 [ext_resource type="Texture2D" uid="uid://ccvble6624v35" path="res://Game/EndScreensPictures/EndScreen.png" id="2_8klc0"]
-[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_8gqo6"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/Fonts/segoesc.ttf" id="3_8gqo6"]
 
 [sub_resource type="FontVariation" id="FontVariation_x3t0b"]
 base_font = ExtResource("3_8gqo6")

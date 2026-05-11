@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://cmwh0inmnspwb" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsPlay.png" id="2_30jog"]
 [ext_resource type="Texture2D" uid="uid://b8n05jrh4p0wl" path="res://Sprites/car-truck4.png" id="2_eauri"]
 [ext_resource type="Texture2D" uid="uid://cdxbuqctcr813" path="res://Sprites/porsche.png" id="3_30jog"]
-[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="5_30jog"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/Fonts/segoesc.ttf" id="5_30jog"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tu2qp"]
 bg_color = Color(11.708403, 11.708403, 11.708403, 1)

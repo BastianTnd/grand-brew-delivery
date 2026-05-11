@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://buduagtol513p" path="res://Game/HowToPlayMenu/how_to_play.gd" id="1_2gk6m"]
 [ext_resource type="Texture2D" uid="uid://qkksgnfkytsb" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsHowToPlay.png" id="2_62jii"]
-[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_xl2p1"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/Fonts/segoesc.ttf" id="3_xl2p1"]
 
 [sub_resource type="FontVariation" id="FontVariation_g5o03"]
 base_font = ExtResource("3_xl2p1")

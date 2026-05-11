@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://b8thexumc017h"
-path="res://.godot/imported/segoesc.ttf-9c59cb419033a0421d6f11bb672415ad.fontdata"
+path="res://.godot/imported/segoesc.ttf-3a68fa7de723af7adfb1c496720e7e35.fontdata"
 
 [deps]
 
-source_file="res://Game/segoesc.ttf"
-dest_files=["res://.godot/imported/segoesc.ttf-9c59cb419033a0421d6f11bb672415ad.fontdata"]
+source_file="res://Game/Fonts/segoesc.ttf"
+dest_files=["res://.godot/imported/segoesc.ttf-3a68fa7de723af7adfb1c496720e7e35.fontdata"]
 
 [params]
 

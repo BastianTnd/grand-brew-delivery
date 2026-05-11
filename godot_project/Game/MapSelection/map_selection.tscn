@@ -3,7 +3,8 @@
 [ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitleScreenPictures/TitlescreenNew3Buttons.png" id="1_06jrk"]
 [ext_resource type="Script" uid="uid://cr37yi0vn167x" path="res://Game/MapSelection/map_selection.gd" id="1_evfsq"]
 [ext_resource type="Texture2D" uid="uid://bhlmn2eui441a" path="res://Game/MapSelection/Sprites/legacy_map.png" id="2_235ck"]
-[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_evfsq"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/Fonts/segoesc.ttf" id="3_evfsq"]
+
 
 [sub_resource type="LabelSettings" id="LabelSettings_f1dlv"]
 font_size = 64
