@@ -5,6 +5,7 @@ extends Area2D
 @export var collectible: collectible_type
 enum collectible_type {MALT, HOPS, YEAST}
 
+# Paths to our sprites
 var malt_sprite = "res://Collectible/Sprites/Malt.png"
 var hops_sprite = "res://Collectible/Sprites/Hops.png"
 var yeast_sprite = "res://Collectible/Sprites/Yeast.png"
@@ -13,13 +14,15 @@ func _ready() -> void:
 	change_sprite()
 
 func _on_body_entered(body: Node2D) -> void:
+	# Trigger collection sequence upon player contact
 	if body.name == "Player":
 		SoundManager.play_collect_sound()
 		if ScoreManager:
 			ScoreManager.collect_item(collectible)
-		self.queue_free()
+		self.queue_free() # Remove item from scene after pickup
 	
 func change_sprite() -> void:
+	# Assign the correct original texture based on the item type
 	if collectible == collectible_type.MALT:
 		collectible_sprite.texture = load(malt_sprite)
 	elif collectible == collectible_type.HOPS:
