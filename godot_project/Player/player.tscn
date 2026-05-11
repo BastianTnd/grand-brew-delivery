@@ -93,6 +93,10 @@ scale = Vector2(0.7, 0.7)
 shape = SubResource("CapsuleShape2D_4ntmi")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=229678205]
+limit_left = -1007
+limit_top = -119
+limit_right = 993
+limit_bottom = 1401
 limit_smoothed = true
 position_smoothing_enabled = true
 
