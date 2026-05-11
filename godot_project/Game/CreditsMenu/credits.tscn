@@ -63,7 +63,7 @@ layout_mode = 0
 offset_left = 60.0
 offset_top = 40.0
 offset_right = 970.0
-offset_bottom = 632.0
+offset_bottom = 785.0
 color = Color(0.011764706, 0.011764706, 0.011764706, 0.8784314)
 
 [node name="GoBack" type="Button" parent="." unique_id=1044614828]
@@ -104,8 +104,8 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -11.5
-offset_bottom = 11.5
+offset_top = -225.0
+offset_bottom = 381.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -131,6 +131,11 @@ Vehicles: Custom-designed sprites for both the Delivery Van and the Sportscar, e
 Items & Collectibles: Original artwork for all in-game items (Hops, Malt, and Water) as well
  as the custom Beer Keg icons used for cargo tracking in the HUD (Heads-Up Display).
 User Interface (UI): Complete visual design and layout of the Title Screen (Main Menu)
- and the End Screen (GameOver), establishing a consistent aesthetic throughout the game."
+ and the End Screen (GameOver), establishing a consistent aesthetic throughout the game.
+
+Menu-Music: \"A Conversation with Saul (Jazz/Blues Shuffle)\" by Matthew Pablo: 
+https://opengameart.org/content/a-conversation-with-saul-jazzblues-shuffle
+Game-Music \"Pixel Sprinter\" by Zane Little Music: 
+https://opengameart.org/content/pixel-sprinter"
 
 [connection signal="pressed" from="GoBack" to="." method="_on_go_back_pressed"]
