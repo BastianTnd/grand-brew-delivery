@@ -7,7 +7,7 @@
 ---
 
 ## 🍺 Game Vision
-In einer geschäftigen Stadt schlüpfst du in die Rolle eines Brauerei-Kuriers. Deine Mission:
+In einer Stadt schlüpfst du in die Rolle eines Brauerei-Kuriers. Deine Mission:
 1. **Sammeln:** Finde die drei essenziellen Zutaten (Hopfen, Malz, Wasser) auf der Karte.
 2. **Brauen:** Bringe sie zur Brauerei, um dein Fahrzeug mit frischem Bier zu beladen.
 3. **Liefern:** Bringe die Fracht so schnell wie möglich zur Bar – aber Vorsicht: Jeder Unfall kostet wertvolle Ladung!
