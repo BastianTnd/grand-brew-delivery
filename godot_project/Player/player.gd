@@ -2,9 +2,9 @@ extends CharacterBody2D
 
 # --- PRELOADS ---
 # Icons used for the dynamic navigation arrows (Original Assets)
-var icon_malt = preload("res://Collectible/Sprites/malt.png")
-var icon_hops = preload("res://Collectible/Sprites/hops.png")
-var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
+var icon_malt = preload("res://Collectible/Sprites/Malt.png")
+var icon_hops = preload("res://Collectible/Sprites/Hops.png")
+var icon_yeast = preload("res://Collectible/Sprites/Yeast.png")
 
 # --- VISUAL FEEDBACK REFERENCES ---
 @onready var impact_particles = $ImpactParticles
