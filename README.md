@@ -40,6 +40,8 @@ We take pride in the following components which were designed and implemented sp
 * **Tileset:** Built using the "RPG Urban Pack" by Kenney: [kenney.nl](https://kenney.nl/assets/rpg-urban-pack)
 * **Buildings:** The Brewing Station and Bar are from the "City Prop Tileset" by shidky: [shidky.itch.io](https://shidky.itch.io/city-prop-tileset)
 * **Car Sprites (Legacy):** Base car sprites from "Top View Car Truck Sprites" by gameguy: [opengameart.org](https://opengameart.org/content/top-view-car-truck-sprites)
+* **Menu-Music:** "A Conversation with Saul (Jazz/Blues Shuffle)" by Matthew Pablo: [opengameart.org](https://opengameart.org/content/a-conversation-with-saul-jazzblues-shuffle)
+* **Game-Music** "Pixel Sprinter" by Zane Little Music: [opengameart.org](https://opengameart.org/content/pixel-sprinter)
 
 ---
 
