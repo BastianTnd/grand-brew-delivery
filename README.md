@@ -17,7 +17,7 @@ In einer Stadt schlüpfst du in die Rolle eines Brauerei-Kuriers. Deine Mission:
 ## 🎮 Key Features
 * **Procedural Content Generation (PCG):** Ein dynamisches Kartensystem erstellt bei jedem Start ein neues Stadtlayout aus handgefertigten Modulen (Chunks).
 * **Dual-Map-System:** Spieler können zwischen der klassischen, handgezeichneten **Legacy Map** und der zufallsgenerierten **PCG Map** wählen.
-* **Fahrzeug-Klassen:** * *Delivery Van:* Schwerfällig, aber robust mit hoher Ladekapazität.
+* **Fahrzeug-Klassen:** *Delivery Van:* Schwerfällig, aber robust mit hoher Ladekapazität.
     * *Sportscar:* Extrem schnell und wendig, jedoch mit begrenztem Tankvolumen für eine bessere Spielbalance.
 * **Realistische Physik:** Das Fahrverhalten (Bremsweg, Trägheit) ändert sich dynamisch basierend auf der Menge der geladenen Bierfässer.
 * **Highscore-System:** Lokale Speicherung der Bestzeiten (JSON-basiert) inklusive Namenseingabe im Game-Over-Screen.
