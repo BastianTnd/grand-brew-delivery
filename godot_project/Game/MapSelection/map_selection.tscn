@@ -5,9 +5,41 @@
 [ext_resource type="Texture2D" uid="uid://bhlmn2eui441a" path="res://Game/MapSelection/Sprites/legacy_map.png" id="2_235ck"]
 [ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/Fonts/segoesc.ttf" id="3_evfsq"]
 
-
 [sub_resource type="LabelSettings" id="LabelSettings_f1dlv"]
 font_size = 64
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_evfsq"]
+bg_color = Color(0.52925295, 0, 0.10279996, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fjd0o"]
+bg_color = Color(0.27450982, 0, 0.03529412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jupmh"]
+bg_color = Color(0.27299005, 0, 0.03336532, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
 
 [node name="MapSelection" type="Control" unique_id=299207110]
 layout_mode = 3
@@ -79,5 +111,18 @@ offset_bottom = 271.0
 theme_override_fonts/font = ExtResource("3_evfsq")
 text = "Generated Map"
 
+[node name="GoBack" type="Button" parent="." unique_id=1634025361]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 10.0
+offset_right = 995.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_evfsq")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_fjd0o")
+theme_override_styles/hover = SubResource("StyleBoxFlat_jupmh")
+text = "X"
+
 [connection signal="pressed" from="LegacyMap" to="." method="_on_legacy_map_pressed"]
 [connection signal="pressed" from="GeneratedMap" to="." method="_on_generated_map_pressed"]
+[connection signal="pressed" from="GoBack" to="." method="_on_back_button_pressed"]

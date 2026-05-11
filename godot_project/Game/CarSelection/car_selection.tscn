@@ -54,6 +54,39 @@ base_font = ExtResource("5_30jog")
 [sub_resource type="LabelSettings" id="LabelSettings_tu2qp"]
 font_size = 64
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ykmsg"]
+bg_color = Color(0.52925295, 0, 0.10279996, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ppgfh"]
+bg_color = Color(0.27450982, 0, 0.03529412, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qgcxo"]
+bg_color = Color(0.27299005, 0, 0.03336532, 1)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+corner_radius_top_left = 100
+corner_radius_top_right = 100
+corner_radius_bottom_right = 100
+corner_radius_bottom_left = 100
+
 [node name="CarSelection" type="Control" unique_id=1088836039]
 layout_mode = 3
 anchors_preset = 0
@@ -106,5 +139,18 @@ theme_override_fonts/font = SubResource("FontVariation_df4xx")
 text = "Choose a car!"
 label_settings = SubResource("LabelSettings_tu2qp")
 
+[node name="GoBack" type="Button" parent="." unique_id=1457080829]
+layout_mode = 0
+offset_left = 920.0
+offset_top = 10.0
+offset_right = 995.0
+offset_bottom = 85.0
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxFlat_ykmsg")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_ppgfh")
+theme_override_styles/hover = SubResource("StyleBoxFlat_qgcxo")
+text = "X"
+
 [connection signal="pressed" from="HBoxContainer/VanButton" to="." method="_on_van_button_pressed"]
 [connection signal="pressed" from="HBoxContainer/SportscarButton" to="." method="_on_sportscar_button_pressed"]
+[connection signal="pressed" from="GoBack" to="." method="_on_back_button_pressed"]
