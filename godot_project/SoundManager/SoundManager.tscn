@@ -4,6 +4,7 @@
 [ext_resource type="AudioStream" uid="uid://byhi6owru67cm" path="res://SoundManager/SoundEffects/pickupCollectible.wav" id="2_vfvh5"]
 [ext_resource type="AudioStream" uid="uid://cv7l1t10a2nlc" path="res://SoundManager/SoundEffects/car_crash.mp3" id="3_raj45"]
 [ext_resource type="AudioStream" uid="uid://dbjlek202amnq" path="res://SoundManager/SoundEffects/grass_sound.mp3" id="4_uuxfd"]
+[ext_resource type="AudioStream" uid="uid://dcckvp4ewkuqd" path="res://SoundManager/SoundEffects/engine_sound.mp3" id="5_44fp6"]
 [ext_resource type="AudioStream" uid="uid://dyfofqwflwgit" path="res://SoundManager/Music/A Conversation with Saul (Rough Demo.mp3" id="5_bndsk"]
 [ext_resource type="AudioStream" uid="uid://wprvpk7ubjos" path="res://SoundManager/Music/pixel_sprinter_loop.wav" id="6_xy07e"]
 
@@ -12,6 +13,7 @@ script = ExtResource("1_raqhw")
 collect_sound = ExtResource("2_vfvh5")
 crash_sound = ExtResource("3_raj45")
 grass_sound = ExtResource("4_uuxfd")
+engine_sound = ExtResource("5_44fp6")
 menu_music = ExtResource("5_bndsk")
 race_music = ExtResource("6_xy07e")
 end_screen_music = ExtResource("5_bndsk")

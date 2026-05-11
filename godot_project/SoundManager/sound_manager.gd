@@ -7,6 +7,7 @@ extends Node
 @export var collect_sound: AudioStream
 @export var crash_sound: AudioStream
 @export var grass_sound: AudioStream
+@export var engine_sound: AudioStream
 
 @export_group("Music")
 @export var menu_music: AudioStream
@@ -65,3 +66,4 @@ func play_sfx(stream: AudioStream, pitch_variation: float = 0.0, volume_db: floa
 func play_collect_sound(): play_sfx(collect_sound, 0.1, -12.0)
 func play_crash_sound(): play_sfx(crash_sound, 0.1, -18.0)
 func play_grass_sound(): play_sfx(grass_sound, 0.1, -30.0)
+func play_engine_sound(): play_sfx(engine_sound, 0.1, 0.0)

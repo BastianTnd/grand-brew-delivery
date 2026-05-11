@@ -44,6 +44,9 @@ var beer_visual: AnimatedSprite2D # HUD reference for visual cargo tracking
 var current_arrow_color = Color.WHITE
 var target_bar: Node2D = null
 
+# --- AUDIO ---
+var engine_audio_player: AudioStreamPlayer
+
 func _ready():
 	# Deferred initialization to ensure HUD nodes are available
 	await get_tree().process_frame
@@ -57,6 +60,16 @@ func _ready():
 	
 	if impact_particles: impact_particles.emitting = false
 	if grass_particles: grass_particles.emitting = false
+	
+	# Initialize continuous engine sound
+	engine_audio_player = AudioStreamPlayer.new()
+	add_child(engine_audio_player)
+	
+	# Fetch the audio file from your SoundManager
+	if SoundManager.engine_sound != null:
+		engine_audio_player.stream = SoundManager.engine_sound
+		engine_audio_player.volume_db = -15.0 # Mache ihn etwas leiser
+		engine_audio_player.play()
 
 func _physics_process(delta):
 	if crash_cooldown > 0: crash_cooldown -= delta
@@ -78,6 +91,18 @@ func _physics_process(delta):
 	var weight_factor = remap(beer_level, 0, max_beer, 1.0, 1.3)
 	var speed = velocity.length()
 	var forward_dir = Vector2.RIGHT.rotated(rotation)
+	
+	# --- ENGINE SOUND DYNAMICS ---
+	if engine_audio_player and engine_audio_player.playing:
+		# Calculate pitch based on speed ratio (0.0 to 1.0)
+		var current_max = max_speed * speed_modifier
+		var speed_ratio = clamp(speed / current_max, 0.0, 1.0)
+		
+		# Base pitch is 0.8 (idle), max pitch is 2.0 (top speed)
+		var target_pitch = 0.8 + (speed_ratio * 1.2)
+		
+		# Smoothly transition to the new pitch
+		engine_audio_player.pitch_scale = lerp(engine_audio_player.pitch_scale, target_pitch, 10.0 * delta)
 
 	# --- STEERING LOGIC ---
 	if speed > 5 or move_input != 0:
