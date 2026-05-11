@@ -5,8 +5,7 @@ extends Node
 @export var crash_sound: AudioStream
 @export var grass_sound: AudioStream
 
-
-func play_sfx(stream: AudioStream, pitch_variation: float = 0.0, volume_db: float = 1.0) -> void:
+func play_sfx(stream: AudioStream, pitch_variation: float = 0.0, volume_db: float = -10.0) -> void:
 	if stream == null: 
 		return
 		
@@ -25,10 +24,10 @@ func play_sfx(stream: AudioStream, pitch_variation: float = 0.0, volume_db: floa
 
 
 func play_collect_sound() -> void:
-	play_sfx(collect_sound, 0.1)
+	play_sfx(collect_sound, 0.1, -12.0)
 	
 func play_crash_sound() -> void:
-	play_sfx(crash_sound, 0.1, 0.1)
+	play_sfx(crash_sound, 0.1, -18.0)
 	
 func play_grass_sound() -> void:
-	play_sfx(grass_sound, 0.1)
+	play_sfx(grass_sound, 0.1, -30.0)
