@@ -5,6 +5,7 @@ extends Node2D
 @export var block_size: int = 256
 @export var number_of_bars: int = 4
 
+# Dictionary containing all map chunk scenes
 @export var chunk_scenes: Dictionary = {
 	"I": null, "V": null, "H": null, 
 	"CURVE": null, "T_CROSS": null, "DEAD_END": null, 
@@ -12,15 +13,15 @@ extends Node2D
 	"EMPTY": null
 }
 
-signal map_ready
-
 var city_blocks: Array
 var player_spawn_position: Vector2 = Vector2.ZERO
 var dead_end_positions: Array[Vector2] = []
 var fallback_positions: Array[Vector2] = []
 
 func _ready() -> void:
-	randomize() 
+	randomize()
+	
+	# PCG Pipeline execution order
 	_initialize_city()
 	_generate_city_layout()
 	_place_brewery()
@@ -29,57 +30,71 @@ func _ready() -> void:
 	_place_bars()
 	_remove_unused_stubs()
 	_calculate_all_intersections()
+	
 	_print_city_blocks()
 	_build_world()
-	
-	map_ready.emit()
 
+# Creates an empty 2D array grid
 func _initialize_city() -> void:
 	city_blocks.clear()
+	# Create columns (x) and rows (y) filled with empty spaces
 	for x in _dimensions.x:
 		var column = []
 		for y in _dimensions.y:
 			column.append(" ")
 		city_blocks.append(column)
 
+# Populates the grid with a perfect street checkerboard pattern
 func _generate_city_layout() -> void:
 	for x in _dimensions.x:
 		for y in _dimensions.y:
+			# Every odd index (1, 3, 5...) becomes a street
 			var is_road_column = (x % 2 != 0)
 			var is_road_row = (y % 2 != 0)
 			
+			# Intersections where horizontal and vertical roads meet
 			if is_road_column and is_road_row: city_blocks[x][y] = "I"
+			# Vertical road segments
 			elif is_road_column: city_blocks[x][y] = "V"
+			# Horizontal road segments
 			elif is_road_row: city_blocks[x][y] = "H"
 
+# Places the brewery securely near the center of the grid
 func _place_brewery() -> void:
 	var available_intersections: Array[Vector2i] = []
+	
+	# Only look for intersections in the safe inner zone (offset by 3)
 	for x in range(3, _dimensions.x - 2, 2):
 		for y in range(3, _dimensions.y - 2, 2):
 			if city_blocks[x][y] == "I":
 				available_intersections.append(Vector2i(x, y))
 				
+	# Pick a random intersection from the safe zone and place the brewery
 	if available_intersections.size() > 0:
 		available_intersections.shuffle()
 		var bs_pos = available_intersections.pop_back()
 		city_blocks[bs_pos.x][bs_pos.y] = "BREW"
 
+# Subtractive PCG: Randomly removes streets to create an organic layout
 func _carve_organic_city() -> void:
 	for x in range(1, _dimensions.x - 1):
 		for y in range(1, _dimensions.y - 1):
 			if typeof(city_blocks[x][y]) == TYPE_STRING and city_blocks[x][y] in ["V", "H"]:
+				
+				# Check the 4 immediate neighbors for the brewery
 				var is_near_brewery = false
 				if city_blocks[x][y-1] == "BREW" or city_blocks[x][y+1] == "BREW" or city_blocks[x-1][y] == "BREW" or city_blocks[x+1][y] == "BREW":
 					is_near_brewery = true
 				
+				# 35% chance to delete a street, creating natural dead ends
 				if not is_near_brewery and randf() < 0.35: 
 					city_blocks[x][y] = " "
 
+# Graph validation: Uses Flood Fill (BFS) to remove unreachable street islands
 func _remove_disconnected_islands() -> void:
-	# FLOOD FILL ALGORITHM
 	var start_pos = Vector2i(-1, -1)
 	
-	# 1. Find Startpoint for Brewing Station
+	# Step 1: Find the brewery to use as the starting node for the BFS
 	for x in _dimensions.x:
 		for y in _dimensions.y:
 			if typeof(city_blocks[x][y]) == TYPE_STRING and city_blocks[x][y] == "BREW":
@@ -89,18 +104,22 @@ func _remove_disconnected_islands() -> void:
 		
 	if start_pos.x == -1: return
 	
+	# Initialize queue for Breadth-First Search
 	var visited = []
 	var queue = [start_pos]
 	visited.append(start_pos)
 	
-	# 2. Create Streets
+	# Step 2: Flood fill to find all connected streets
 	while queue.size() > 0:
 		var current = queue.pop_front()
 		var neighbors = [Vector2i(0,-1), Vector2i(0,1), Vector2i(-1,0), Vector2i(1,0)]
 		
+		# Check all 4 adjacent cells
 		for n in neighbors:
 			var nx = current.x + n.x
 			var ny = current.y + n.y
+			
+			# If the cell is within map bounds and is a valid, unvisited street, add it to the queue
 			if nx >= 0 and nx < _dimensions.x and ny >= 0 and ny < _dimensions.y:
 				var cell = city_blocks[nx][ny]
 				var n_pos = Vector2i(nx, ny)
@@ -108,14 +127,16 @@ func _remove_disconnected_islands() -> void:
 					visited.append(n_pos)
 					queue.append(n_pos)
 					
-	# 3. Delete everything that can't be reached
+	# Step 3: Delete any street that the flood fill couldn't reach
 	for x in _dimensions.x:
 		for y in _dimensions.y:
 			var pos = Vector2i(x, y)
 			if city_blocks[x][y] != " " and not visited.has(pos):
 				city_blocks[x][y] = " "
 
+# Places delivery targets (Bars) around the map edges
 func _place_bars() -> void:
+	# Group all available edge streets by direction
 	var edges = { "top": [], "bottom": [], "left": [], "right": [] }
 	
 	for x in _dimensions.x:
@@ -131,6 +152,7 @@ func _place_bars() -> void:
 	var directions = ["top", "bottom", "left", "right"]
 	directions.shuffle()
 	
+	# Phase 1: Try to place at least one bar on each side of the map
 	for dir in directions:
 		if bars_placed >= number_of_bars: break
 		if edges[dir].size() > 0:
@@ -139,6 +161,7 @@ func _place_bars() -> void:
 			city_blocks[bar_data["pos"].x][bar_data["pos"].y] = bar_data["type"]
 			bars_placed += 1
 			
+	# Phase 2: Place remaining bars randomly on any leftover edge spots
 	if bars_placed < number_of_bars:
 		var remaining_spots = []
 		for dir in edges: remaining_spots.append_array(edges[dir])
@@ -148,6 +171,7 @@ func _place_bars() -> void:
 			city_blocks[bar_data["pos"].x][bar_data["pos"].y] = bar_data["type"]
 			bars_placed += 1
 
+# Cleans up dead ends on the outer edges that did not become a bar
 func _remove_unused_stubs() -> void:
 	for x in _dimensions.x:
 		for y in _dimensions.y:
@@ -158,6 +182,7 @@ func _remove_unused_stubs() -> void:
 				elif (y == 0 or y == _dimensions.y - 1) and cell == "V":
 					city_blocks[x][y] = " "
 
+# Re-evaluates intersection types using Bitmasking
 func _calculate_all_intersections() -> void:
 	for x in range(1, _dimensions.x - 1, 2):
 		for y in range(1, _dimensions.y - 1, 2):
@@ -165,19 +190,20 @@ func _calculate_all_intersections() -> void:
 				city_blocks[x][y] = _calculate_intersection_type(x, y)
 
 func _is_road_connection(x: int, y: int) -> bool:
-	if x < 0 or x >= _dimensions.x or y < 0 or y >= _dimensions.y:
-		return false
+	if x < 0 or x >= _dimensions.x or y < 0 or y >= _dimensions.y: return false
 	var cell = city_blocks[x][y]
 	if typeof(cell) == TYPE_STRING: return cell != " "
 	elif typeof(cell) == TYPE_DICTIONARY: return cell["type"] != " "
 	return false
 
+# Calculates exact tile logic using bitwise sums (North=1, East=2, South=4, West=8)
 func _calculate_intersection_type(x: int, y: int) -> Dictionary:
 	var north = 1 if _is_road_connection(x, y - 1) else 0
 	var east  = 2 if _is_road_connection(x + 1, y) else 0
 	var south = 4 if _is_road_connection(x, y + 1) else 0
 	var west  = 8 if _is_road_connection(x - 1, y) else 0
 	
+	# The sum creates a unique ID (0-15) representing the exact road configuration
 	var sum = north + east + south + west
 	match sum:
 		0: return {"type": " ", "rot": 0}
@@ -198,6 +224,7 @@ func _calculate_intersection_type(x: int, y: int) -> Dictionary:
 		15: return {"type": "I", "rot": 0}
 	return {"type": "I", "rot": 0}
 
+# Instantiates Godot scenes based on the generated logical grid
 func _build_world() -> void:
 	for x in _dimensions.x:
 		for y in _dimensions.y:
@@ -206,6 +233,7 @@ func _build_world() -> void:
 			var rot_degrees = 0
 			var needs_rotation = false
 			
+			# Decode string symbols
 			if typeof(symbol) == TYPE_STRING:
 				if symbol == " ": scene_key = "EMPTY"
 				elif symbol == "BAR_V_TOP": scene_key = "BAR_V"
@@ -214,28 +242,33 @@ func _build_world() -> void:
 				elif symbol == "BAR_H_RIGHT": scene_key = "BAR_H"; rot_degrees = 180; needs_rotation = true
 				else: scene_key = symbol
 					
+			# Decode dictionary symbols (calculated intersections)
 			elif typeof(symbol) == TYPE_DICTIONARY:
 				if symbol["type"] == " ": scene_key = "EMPTY"
 				else: scene_key = symbol["type"]
 				rot_degrees = symbol["rot"]
 				if rot_degrees != 0: needs_rotation = true
 					
+			# Spawn the actual 2D scene
 			var scene_to_instance: PackedScene = chunk_scenes.get(scene_key)
 			if scene_to_instance != null:
 				var chunk = scene_to_instance.instantiate()
 				add_child(chunk)
 				chunk.position = Vector2(x * block_size, y * block_size)
 				
+				# Apply rotation and adjust position to keep it aligned to the grid
 				if needs_rotation:
 					chunk.rotation = deg_to_rad(rot_degrees)
 					if rot_degrees == 90: chunk.position += Vector2(block_size, 0)
 					elif rot_degrees == 180: chunk.position += Vector2(block_size, block_size)
 					elif rot_degrees == 270: chunk.position += Vector2(0, block_size)
 						
+				# Save center points of dead ends for collectible spawning
 				if scene_key == "DEAD_END":
 					var center_pos = Vector2(x * block_size + (block_size / 2.0), y * block_size + (block_size / 2.0))
 					dead_end_positions.append(center_pos)
 						
+	# Gather all valid road coordinates for player and fallback item spawns
 	var valid_spawns = []
 	fallback_positions.clear()
 	
@@ -260,10 +293,12 @@ func _build_world() -> void:
 				var pos = Vector2(x * block_size + (block_size / 2.0), y * block_size + (block_size / 2.0))
 				fallback_positions.append(pos)
 				
+	# Pick a random valid intersection for the player to start on
 	if valid_spawns.size() > 0:
 		var spawn_pos = valid_spawns.pick_random()
 		player_spawn_position = Vector2(spawn_pos.x * block_size + (block_size / 2.0), spawn_pos.y * block_size + (block_size / 2.0))
 
+# Debug function to visualize the logical grid in the console
 func _print_city_blocks():
 	print("City Block Map:")
 	var map_string = ""

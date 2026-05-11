@@ -14,7 +14,6 @@
 
 [node name="Map_New" type="Node2D" unique_id=1676787412]
 script = ExtResource("1_kw6vf")
-_dimensions = Vector2i(9, 7)
 chunk_scenes = {
 "BAR_H": ExtResource("7_3uksn"),
 "BAR_V": ExtResource("6_80bgv"),
