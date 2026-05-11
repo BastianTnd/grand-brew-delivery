@@ -26,7 +26,6 @@ SoundManager="*uid://dkhb5f8j0kh22"
 window/size/viewport_width=1024
 window/size/viewport_height=768
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
 window/handheld/orientation=4
 
 [physics]
