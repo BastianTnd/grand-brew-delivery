@@ -123,6 +123,14 @@ The Buildings used for the Brewing Station and Bar are from the tileset \"City P
 https://shidky.itch.io/city-prop-tileset
 
 The Sprites we used for the cars are from \"Top View Car Truck Sprites\" by gameguy:
-https://opengameart.org/content/top-view-car-truck-sprites"
+https://opengameart.org/content/top-view-car-truck-sprites
+
+The following assets were designed and created from scratch specifically for this project:
+Vehicles: Custom-designed sprites for both the Delivery Van and the Sportscar, ensuring
+ unique silhouettes and visual styles for each vehicle class.
+Items & Collectibles: Original artwork for all in-game items (Hops, Malt, and Water) as well
+ as the custom Beer Keg icons used for cargo tracking in the HUD (Heads-Up Display).
+User Interface (UI): Complete visual design and layout of the Title Screen (Main Menu)
+ and the End Screen (GameOver), establishing a consistent aesthetic throughout the game."
 
 [connection signal="pressed" from="GoBack" to="." method="_on_go_back_pressed"]
