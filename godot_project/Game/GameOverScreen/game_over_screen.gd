@@ -15,61 +15,50 @@ var tex_menu_click = preload("res://Game/EndScreensPictures/EndScreenMainMenu.pn
 @onready var main_menu_button = find_child("MainMenuButton")
 
 func _ready():
-	if background_rect:
-		background_rect.texture = tex_default
+	# START END SCREEN MUSIC
+	SoundManager.play_end_screen_music()
 	
-	if restart_button:
-		restart_button.mouse_entered.connect(_on_restart_hover)
-		restart_button.mouse_exited.connect(_on_ui_exit)
-		restart_button.button_down.connect(_on_restart_down)
-	
-	if main_menu_button:
-		main_menu_button.mouse_entered.connect(_on_main_menu_hover)
-		main_menu_button.mouse_exited.connect(_on_ui_exit)
-		main_menu_button.button_down.connect(_on_main_menu_down)
+	if background_rect: background_rect.texture = tex_default
+	_setup_signals()
 
 	if result_label:
 		result_label.text = "Final Score: " + str(int(round(ScoreManager.total_points)))
 	
 	if name_input:
 		name_input.max_length = 3
-		name_input.placeholder_text = "ABC"
-		name_input.alignment = HorizontalAlignment.HORIZONTAL_ALIGNMENT_CENTER
 		name_input.grab_focus() 
 	
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
+func _setup_signals():
+	if restart_button:
+		restart_button.mouse_entered.connect(_on_restart_hover)
+		restart_button.mouse_exited.connect(_on_ui_exit)
+		restart_button.button_down.connect(_on_restart_down)
+	if main_menu_button:
+		main_menu_button.mouse_entered.connect(_on_main_menu_hover)
+		main_menu_button.mouse_exited.connect(_on_ui_exit)
+		main_menu_button.button_down.connect(_on_main_menu_down)
+
 # --- VISUAL FEEDBACK LOGIC ---
-
-func _on_restart_hover():
-	background_rect.texture = tex_restart_hover
-
-func _on_restart_down():
-	background_rect.texture = tex_restart_click
-
-func _on_main_menu_hover():
-	background_rect.texture = tex_menu_hover
-
-func _on_main_menu_down():
-	background_rect.texture = tex_menu_click
-
-func _on_ui_exit():
-	background_rect.texture = tex_default
+func _on_restart_hover(): background_rect.texture = tex_restart_hover
+func _on_restart_down(): background_rect.texture = tex_restart_click
+func _on_main_menu_hover(): background_rect.texture = tex_menu_hover
+func _on_main_menu_down(): background_rect.texture = tex_menu_click
+func _on_ui_exit(): background_rect.texture = tex_default
 
 # --- BUTTON FUNCTIONALITY ---
-
 func _save_and_finalize():
 	var player_name = "???"
-	if name_input:
-		var text = name_input.text.strip_edges()
-		if text != "":
-			player_name = text
-	
+	if name_input and name_input.text.strip_edges() != "":
+		player_name = name_input.text.strip_edges()
 	ScoreManager.save_new_score(int(round(ScoreManager.total_points)), player_name)
 
 func _on_restart_button_pressed():
 	_save_and_finalize()
 	ScoreManager.start_game()
+	# Switch back to race music for the new attempt
+	SoundManager.play_race_music()
 	get_tree().change_scene_to_file("res://Game/game.tscn")
 
 func _on_main_menu_button_pressed():

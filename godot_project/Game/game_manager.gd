@@ -12,6 +12,9 @@ var spawn_points = {
 }
 
 func _ready():
+	# SWITCH TO RACE MUSIC
+	SoundManager.play_race_music()
+	
 	_load_selected_map() 
 	
 	# Find Map Generator and save it
@@ -48,32 +51,25 @@ func spawn_player_car(map_generator = null):
 	var car_instance = car_scene.instantiate()
 	
 	if map_generator != null:
-		# On the generated Map
 		car_instance.global_position = map_generator.player_spawn_position
 		car_instance.adapt_to_map_scale(0.5) 
 		
 		var camera = car_instance.get_node_or_null("Camera2D")
 		if camera:
 			camera.zoom = Vector2(2.5, 2.5) 
-			
-			# Dynamic Camera Limits for Generated Map
 			camera.limit_left = 0
 			camera.limit_top = 0
 			camera.limit_right = map_generator._dimensions.x * map_generator.block_size
 			camera.limit_bottom = map_generator._dimensions.y * map_generator.block_size
 			
 	elif has_node("SpawnPoint"):
-		# On the Legacy Map
 		car_instance.global_position = $SpawnPoint.global_position
-		
 		var camera = car_instance.get_node_or_null("Camera2D")
 		if camera:
-			# Camera Limits for Legacy Map
 			camera.limit_left = -1007
 			camera.limit_top = -119
 			camera.limit_right = 993
 			camera.limit_bottom = 1401
-			
 	else:
 		car_instance.global_position = Vector2.ZERO 
 		
@@ -84,40 +80,28 @@ func spawn_items():
 	var selected_spawn_coords = []
 	
 	if current_map_generator != null:
-		# Generated Map
-		# 1. Put all Dead Ends and Streets in a list
 		var all_possible_spawns = current_map_generator.dead_end_positions.duplicate()
 		all_possible_spawns.append_array(current_map_generator.fallback_positions.duplicate())
-		
-		# 2. Shuffle Spawn Points
 		all_possible_spawns.shuffle()
 		
-		# 3. Take 3 random positions to place the items on the generated map
 		for i in range(3):
 			var found_spot = false
-
 			for pos in all_possible_spawns:
-				# Check if it is far enough away from player spawn and that there is no other item
 				if pos.distance_to(current_map_generator.player_spawn_position) > 100 and not selected_spawn_coords.has(pos):
 					selected_spawn_coords.append(pos)
 					all_possible_spawns.erase(pos)
 					found_spot = true
 					break
-					
 			if not found_spot:
 				selected_spawn_coords.append(Vector2(0,0))
 	else:
-		# Legacy Map
 		var random_number_spawn_points = randi_range(1, 5)
 		selected_spawn_coords = spawn_points[random_number_spawn_points]
 	
-	# Create items and place them
 	for index in range(types.size()):
 		var item = collectible_blueprint.instantiate()
 		item.collectible = types[index]
 		add_child(item)
 		item.position = selected_spawn_coords[index]
-		
-		# Scale the items smaller for the smaller pcg map
 		if current_map_generator != null:
-			item.scale = Vector2(0.5, 0.5) 
+			item.scale = Vector2(0.5, 0.5)
