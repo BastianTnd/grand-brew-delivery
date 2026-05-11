@@ -1,62 +1,61 @@
 # Grand Brew Delivery 🍺
 
-**Grand Brew Delivery** ist ein rasanter Top-Down Arcade-Racer, entwickelt mit **Godot 4.3**. Das Spiel kombiniert präzises Fahrverhalten mit einem strategischen Gameplay-Loop aus Sammeln, Brauen und Ausliefern.
+**Grand Brew Delivery** is a fast-paced top-down arcade racer developed with **Godot 4.3**. The game combines precise driving mechanics with a strategic gameplay loop consisting of gathering, brewing, and delivering.
 
-> **Hintergrund:** Dieses Projekt entstand ursprünglich im Rahmen des **Godot Wild Jam 92** und wurde post Game jam erweitert, insbesondere um ein prozedurales Generierungssystem (PCG) und verfeinerte Fahrzeugphysik.
+> **Background:** This project originally originated as part of **Godot Wild Jam 92** and was expanded post-jam, specifically focusing on a Procedural Content Generation (PCG) system and refined vehicle physics.
 
 ---
 
 ## 🍺 Game Vision
-In einer Stadt schlüpfst du in die Rolle eines Brauerei-Kuriers. Deine Mission:
-1. **Sammeln:** Finde die drei essenziellen Zutaten (Hopfen, Malz, Wasser) auf der Karte.
-2. **Brauen:** Bringe sie zur Brauerei, um dein Fahrzeug mit frischem Bier zu beladen.
-3. **Liefern:** Bringe die Fracht so schnell wie möglich zur Bar – aber Vorsicht: Jeder Unfall kostet wertvolle Ladung!
+As a brewery courier in a bustling city, your mission is:
+1. **Gather:** Locate the three essential ingredients (**Hops, Malt, Water**) scattered across the map.
+2. **Brew:** Return them to the brewery to load your vehicle with fresh beer.
+3. **Deliver:** Transport the cargo to the bar as quickly as possible—but be careful: every crash costs you valuable cargo!
 
 ---
 
 ## 🎮 Key Features
-* **Procedural Content Generation (PCG):** Ein dynamisches Kartensystem erstellt bei jedem Start ein neues Stadtlayout aus handgefertigten Modulen (Chunks).
-* **Dual-Map-System:** Spieler können zwischen der klassischen, handgezeichneten **Legacy Map** und der zufallsgenerierten **PCG Map** wählen.
-* **Fahrzeug-Klassen:** *Delivery Van:* Schwerfällig, aber robust mit hoher Ladekapazität.
-    * *Sportscar:* Extrem schnell und wendig, jedoch mit begrenztem Tankvolumen für eine bessere Spielbalance.
-* **Realistische Physik:** Das Fahrverhalten (Bremsweg, Trägheit) ändert sich dynamisch basierend auf der Menge der geladenen Bierfässer.
-* **Highscore-System:** Lokale Speicherung der Bestzeiten (JSON-basiert) inklusive Namenseingabe im Game-Over-Screen.
+* **Procedural Content Generation (PCG):** A dynamic map system generates a new city layout from handcrafted modules (chunks) every time you start a game.
+* **Dual-Map System:** Players can choose between the classic, handcrafted **Legacy Map** and the randomly generated **PCG Map**.
+* **Vehicle Classes:** * *Delivery Van:* Heavy and robust with a high load capacity.
+    * *Sportscar:* Extremely fast and agile, but with limited tank volume to ensure gameplay balance.
+* **Realistic Physics:** Driving behavior (braking distance, inertia) changes dynamically based on the amount of beer currently loaded.
+* **Highscore System:** Local storage of best times (JSON-based) including name entry on the Game Over screen.
 
 ---
 
-## 🎨 Credits & Eigenleistungen
-Folgende Bestandteile wurden von uns eigens für dieses Projekt entworfen:
+## 🎨 Credits & Original Contributions
+We take pride in the following components which were designed and implemented specifically for this project:
 
-### Grafik (Original Assets)
-* **Fahrzeuge:** Eigens erstellte Sprites für den Lieferwagen und den Sportwagen.
-* **Items:** Alle Collectibles (Hopfen, Malz, Wasser) sowie die Bierfass-Icons im HUD.
-* **Screens:** Vollständiges Design des Title-Screens und des End-Screens.
+### Art & Graphics (Original Assets)
+* **Vehicles:** Custom-designed sprites for the Delivery Van and the Sportscar.
+* **Items:** Original artwork for all collectibles (Hops, Malt, Water) as well as the beer keg icons used in the HUD.
+* **Screens:** Complete visual design of the Title Screen (Main Menu) and the End Screen (Game Over).
 
-### Programmierung & Design
-* **Bastian Triendl:** Fahrzeugphysik, UI/HUD-System, eigene Sprites Screens, Highscore-Logik, Core Gameplay-Loop-Logik.
-* **Nalin Caswell:** Prozedurale Karten-Generierung (PCG), Sound-Architektur, Core Gameplay-Loop-Logik, Map-Balancing & Test-Organisation.
+### Programming & Design
+* **Bastian Triendl:** Vehicle physics, UI/HUD system, custom screen sprites, highscore logic, core gameplay loop.
+* **Nalin Caswell:** Procedural Content Generation (PCG), sound architecture, core gameplay loop, map balancing, and playtest organization.
 
-### Third-Party & Lizenzen
-* **Tileset:** The Map was built using the tileset "RPG Urban Pack" from Kenney: https://kenney.nl/assets/rpg-urban-pack
-* **Bar and Brewing Station:** The Buildings used for the Brewing Station and Bar are from the tileset "City Prop Tileset" by shidky: https://shidky.itch.io/city-prop-tileset
-* **Cars:** The Sprites we used for the cars are from "Top View Car Truck Sprites" by gameguy: https://opengameart.org/content/top-view-car-truck-sprites
-* **Audio:** 
-
----
-
-## 🛠 Technisches Setup
-Um das Projekt lokal zu starten:
-1. Stellen Sie sicher, dass **Godot 4.3** (oder neuer) installiert ist.
-2. Klonen Sie dieses Repository: `git clone [REPO_URL]`
-3. Öffnen Sie die `project.godot` im Godot Editor.
-4. Starten Sie das Spiel über die `main.tscn`.
+### Third-Party & Licenses
+* **Tileset:** Built using the "RPG Urban Pack" by Kenney: [kenney.nl](https://kenney.nl/assets/rpg-urban-pack)
+* **Buildings:** The Brewing Station and Bar are from the "City Prop Tileset" by shidky: [shidky.itch.io](https://shidky.itch.io/city-prop-tileset)
+* **Car Sprites (Legacy):** Base car sprites from "Top View Car Truck Sprites" by gameguy: [opengameart.org](https://opengameart.org/content/top-view-car-truck-sprites)
 
 ---
 
-## 📋 Entwicklungshistorie (Auszug)
-* **Phase 1 (Jam):** Prototyping der Steuerung und des Sammel-Systems.
-* **Phase 2 (Refinement):** Implementierung der Schadenslogik (Hit-Counter) und der zentralen Driving-Physic.
-* **Phase 3 (Final):** Integration der prozeduralen Generierung (PCG) und finales Balancing der Fahrzeugklassen und Kartengrößen.
+## 🛠 Technical Setup
+To run the project locally:
+1. Ensure **Godot 4.3** (or newer) is installed.
+2. Clone this repository: `git clone [REPO_URL]`
+3. Open `project.godot` in the Godot Editor.
+4. Run the game via `main.tscn`.
 
 ---
-*Erstellt im Rahmen des Moduls Game Engineering bei Prof. Dr. Kai Eckert an der Technischen Hochschule Mannheim.*
+
+## 📋 Development History (Highlights)
+* **Phase 1 (Jam):** Prototyping controls and the gathering system.
+* **Phase 2 (Refinement):** Implementation of damage logic (hit counter) and core driving physics.
+* **Phase 3 (Final):** Integration of Procedural Content Generation (PCG) and final balancing of vehicle classes and map scales.
+
+---
+*Developed for the "Game Engineering" module under Prof. Dr. Kai Eckert at the University of Applied Sciences Mannheim (Technische Hochschule Mannheim).*
