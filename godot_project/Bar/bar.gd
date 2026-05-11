@@ -11,7 +11,19 @@ func _ready():
 func _process(delta):
 	# Unload logic: requires proximity and nearly stationary vehicle
 	if player_in_range and player_in_range.beer_level > 0:
-		if player_in_range.velocity.length() < 50 or player_in_range.is_refilling:
+		
+		# Check if the player has a specific target bar assigned
+		if "target_bar" in player_in_range and player_in_range.target_bar != null:
+			
+			var dist = player_in_range.target_bar.global_position.distance_to(global_position)
+			
+			# Block size is 256: Anything under 300 pixels distance is the same building
+			if dist > 300.0:
+				# Wrong bar: Unloading stops if player is not at the target bar
+				return 
+				
+		# Requires the player to be nearly stationary (velocity < 50) or already unloading
+		if player_in_range.velocity.length() < 50 or player_in_range.is_unloading:
 			player_in_range.unload_beer(unload_speed * delta)
 
 func _on_body_entered(body):
@@ -22,5 +34,5 @@ func _on_body_entered(body):
 func _on_body_exited(body):
 	# Reset states on exit
 	if body == player_in_range:
-		player_in_range.is_refilling = false
+		player_in_range.is_unloading = false
 		player_in_range = null
