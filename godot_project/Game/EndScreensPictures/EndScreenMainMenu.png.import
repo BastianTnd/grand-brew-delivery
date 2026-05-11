@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://by4woywdil45"
-path="res://.godot/imported/TitlescreenNew3Buttons.png-467217a82ae1f7c08ac7d9bbf36723c5.ctex"
+uid="uid://enmyptuc47yo"
+path="res://.godot/imported/EndScreenMainMenu.png-3721e13611695db014c66c6c858f9a13.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Game/TitlescreenNew3Buttons.png"
-dest_files=["res://.godot/imported/TitlescreenNew3Buttons.png-467217a82ae1f7c08ac7d9bbf36723c5.ctex"]
+source_file="res://Game/EndScreensPictures/EndScreenMainMenu.png"
+dest_files=["res://.godot/imported/EndScreenMainMenu.png-3721e13611695db014c66c6c858f9a13.ctex"]
 
 [params]
 

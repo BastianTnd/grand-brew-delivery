@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://dustlfk6nfbuq"]
 
 [ext_resource type="Script" uid="uid://buduagtol513p" path="res://Game/HowToPlayMenu/how_to_play.gd" id="1_2gk6m"]
-[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitlescreenNew3Buttons.png" id="2_62jii"]
+[ext_resource type="Texture2D" uid="uid://qkksgnfkytsb" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsHowToPlay.png" id="2_62jii"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_xl2p1"]
+
+[sub_resource type="FontVariation" id="FontVariation_g5o03"]
+base_font = ExtResource("3_xl2p1")
+
+[sub_resource type="FontVariation" id="FontVariation_e0kbv"]
+base_font = ExtResource("3_xl2p1")
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_62jii"]
 bg_color = Color(0.5294118, 0, 0.101960786, 1)
@@ -64,10 +71,10 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -172.0
+offset_left = -212.0
 offset_top = 40.0
-offset_right = 256.0
-offset_bottom = 143.0
+offset_right = 280.0
+offset_bottom = 160.0
 grow_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="MarginContainerTitle" unique_id=1973912922]
@@ -75,6 +82,7 @@ layout_mode = 2
 
 [node name="Title" type="Label" parent="MarginContainerTitle/VBoxContainer" unique_id=1436411205]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_g5o03")
 theme_override_font_sizes/font_size = 75
 text = "How to play!"
 
@@ -84,8 +92,9 @@ anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_top = -219.5
-offset_bottom = 331.0
+offset_top = -234.0
+offset_right = -18.0
+offset_bottom = 316.5
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -95,21 +104,23 @@ size_flags_horizontal = 4
 
 [node name="Explanation" type="Label" parent="MarginContainerExplanation/VBoxContainer" unique_id=1772096059]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_e0kbv")
 text = "Controls: Move your truck using the Arrow Keys ↑↓←→
-
 Objective:
 
 - Gather all 3 Ingredients (Malt, Hops, Yeast) and bring them to the Brewing Station.
 
-- The Brewing Station will fill up your Beer Container (respresented by the Beer Mug in the top right corner)
+- The Brewing Station will fill up your Beer Container (respresented by the Beer Mug 
+in the top right corner)
 
 - When Beer Mug is full, drive as fast as possible to the Bar to deliver it,
- but warch out for Buldings, Trees and Cars! Every crash will
-  drain your Beer Container!
+but warch out for Buldings, Trees and Cars! Every crash will
+drain your Beer Container!
 
 - Try to deliver as much Beer as possible!!!
 
-- Hint: Arrows around your Truck are navigating you where you can find the Collectibles, Brewing Station and Bar."
+- Hint: Arrows around your Truck are navigating you where you can find the Collectibles, 
+Brewing Station and Bar."
 
 [node name="MarginContainerButton" type="MarginContainer" parent="." unique_id=1739954162]
 layout_mode = 1

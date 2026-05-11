@@ -1,9 +1,10 @@
 [gd_scene format=3 uid="uid://biwhrxib6jgc2"]
 
 [ext_resource type="Script" uid="uid://crbylnauf1v7p" path="res://Game/CarSelection/car_selection.gd" id="1_eauri"]
-[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitlescreenNew3Buttons.png" id="2_30jog"]
+[ext_resource type="Texture2D" uid="uid://cmwh0inmnspwb" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsPlay.png" id="2_30jog"]
 [ext_resource type="Texture2D" uid="uid://b8n05jrh4p0wl" path="res://Sprites/car-truck4.png" id="2_eauri"]
 [ext_resource type="Texture2D" uid="uid://cdxbuqctcr813" path="res://Sprites/porsche.png" id="3_30jog"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="5_30jog"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tu2qp"]
 bg_color = Color(11.708403, 11.708403, 11.708403, 1)
@@ -46,6 +47,9 @@ corner_radius_top_left = 5
 corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
+
+[sub_resource type="FontVariation" id="FontVariation_df4xx"]
+base_font = ExtResource("5_30jog")
 
 [sub_resource type="LabelSettings" id="LabelSettings_tu2qp"]
 font_size = 64
@@ -94,10 +98,11 @@ icon = ExtResource("3_30jog")
 
 [node name="Choose" type="Label" parent="." unique_id=1286566771]
 layout_mode = 0
-offset_left = 340.0
-offset_top = 80.0
-offset_right = 769.0
-offset_bottom = 183.0
+offset_left = 311.0
+offset_top = 75.0
+offset_right = 760.0
+offset_bottom = 178.0
+theme_override_fonts/font = SubResource("FontVariation_df4xx")
 text = "Choose a car!"
 label_settings = SubResource("LabelSettings_tu2qp")
 

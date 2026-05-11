@@ -17,18 +17,18 @@ max_speed = 600.0
 max_speed_reverse = 140.0
 steering_angle_limit = 60.0
 friction = 0.991
-max_beer = 60.0
+max_beer = 50.0
 
-[node name="Sprite2D" parent="." index="0" unique_id=1897074459]
+[node name="FumeParticles" parent="." index="1" unique_id=534327711]
+position = Vector2(-17, -5)
+
+[node name="Sprite2D" parent="." index="2" unique_id=1897074459]
 texture = ExtResource("2_x0nyb")
 
-[node name="CollisionShape2D" parent="." index="1" unique_id=1567269969]
+[node name="CollisionShape2D" parent="." index="3" unique_id=1567269969]
 position = Vector2(-1.1920929e-07, 2.9802322e-08)
 shape = SubResource("CapsuleShape2D_b5lms")
 
 [node name="CollisionShape2D" parent="Area2D" parent_id_path=PackedInt32Array(1171098915) index="0" unique_id=300668999]
 position = Vector2(-2.3841858e-07, -2.1316282e-14)
 shape = SubResource("CapsuleShape2D_h1mvj")
-
-[node name="FumeParticles" parent="." index="4" unique_id=534327711]
-position = Vector2(-17, -5)

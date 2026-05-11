@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://shp4cae7eeep"]
 
 [ext_resource type="Script" uid="uid://so8qi70dwyx8" path="res://Game/CreditsMenu/credits.gd" id="1_dv7vy"]
-[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitlescreenNew3Buttons.png" id="2_4o88n"]
+[ext_resource type="Texture2D" uid="uid://bj4m87kdclhgf" path="res://Game/TitleScreenPictures/TitlescreenNew3ButtonsCredits.png" id="2_4o88n"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_11vrb"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4o88n"]
 bg_color = Color(0.52925295, 0, 0.10279996, 1)
@@ -35,6 +36,12 @@ corner_radius_top_left = 100
 corner_radius_top_right = 100
 corner_radius_bottom_right = 100
 corner_radius_bottom_left = 100
+
+[sub_resource type="FontVariation" id="FontVariation_dvtbl"]
+base_font = ExtResource("3_11vrb")
+
+[sub_resource type="FontVariation" id="FontVariation_4dxsx"]
+base_font = ExtResource("3_11vrb")
 
 [node name="Credits" type="Control" unique_id=313007674]
 layout_mode = 3
@@ -87,6 +94,7 @@ layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainerTitle/VBoxContainer" unique_id=1650016258]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_dvtbl")
 theme_override_font_sizes/font_size = 100
 text = "Credits"
 
@@ -107,7 +115,9 @@ size_flags_horizontal = 4
 
 [node name="Label" type="Label" parent="MarginContainerCredits/VBoxContainer" unique_id=1771645470]
 layout_mode = 2
-text = "The Map was built using the tileset \"RPG Urban Pack\" from Kenney: https://kenney.nl/assets/rpg-urban-pack
+theme_override_fonts/font = SubResource("FontVariation_4dxsx")
+text = "The Map was built using the tileset \"RPG Urban Pack\" from Kenney: 
+https://kenney.nl/assets/rpg-urban-pack
 
 The Buildings used for the Brewing Station and Bar are from the tileset \"City Prop Tileset\" by shidky:
 https://shidky.itch.io/city-prop-tileset

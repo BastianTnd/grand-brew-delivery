@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://di2uirwf3eamg"]
 
 [ext_resource type="Script" uid="uid://bmrg6ie3ty0l6" path="res://Game/HUD/hud.gd" id="1_cinpd"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="2_i6281"]
 [ext_resource type="Texture2D" uid="uid://c8cvmm6j3yo5b" path="res://Game/Beer.png" id="2_on8bi"]
 [ext_resource type="Texture2D" uid="uid://36y2uqgy2muo" path="res://Game/Beer_2.png" id="3_v1bms"]
 [ext_resource type="Texture2D" uid="uid://dq8oplkfamuco" path="res://Game/Beer_3.png" id="4_e1s58"]
@@ -9,6 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://kmfxn8d5qt62" path="res://Collectible/Sprites/Malt.png" id="7_b6lo0"]
 [ext_resource type="Texture2D" uid="uid://2of83tlkadjc" path="res://Collectible/Sprites/Hops.png" id="8_i6281"]
 [ext_resource type="Texture2D" uid="uid://bsntr8q5yofyh" path="res://Collectible/Sprites/Yeast.png" id="9_ma6jr"]
+
+[sub_resource type="FontVariation" id="FontVariation_ma6jr"]
+base_font = ExtResource("2_i6281")
+
+[sub_resource type="FontVariation" id="FontVariation_oe6fo"]
+base_font = ExtResource("2_i6281")
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_v1bms"]
 animations = [{
@@ -44,6 +51,7 @@ theme_override_constants/margin_top = 12
 
 [node name="TimeLabel" type="Label" parent="MarginContainerTime" unique_id=1118626193]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_ma6jr")
 theme_override_font_sizes/font_size = 20
 text = "TIME 00:00:00"
 
@@ -59,6 +67,7 @@ theme_override_constants/margin_right = 12
 
 [node name="ScoreLabel" type="Label" parent="MarginContainerScore" unique_id=390803879]
 layout_mode = 2
+theme_override_fonts/font = SubResource("FontVariation_oe6fo")
 theme_override_font_sizes/font_size = 20
 text = "SCORE: 123456"
 
