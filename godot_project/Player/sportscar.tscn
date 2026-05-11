@@ -17,7 +17,7 @@ max_speed = 600.0
 max_speed_reverse = 140.0
 steering_angle_limit = 60.0
 friction = 0.991
-max_beer = 50.0
+max_beer = 40.0
 
 [node name="FumeParticles" parent="." index="1" unique_id=534327711]
 position = Vector2(-17, -5)

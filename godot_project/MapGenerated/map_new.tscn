@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://cp06gnphp2cvs"]
+
+[ext_resource type="Script" uid="uid://dchnuwm4m8k3v" path="res://MapGenerated/map_generator.gd" id="1_kw6vf"]
+[ext_resource type="PackedScene" uid="uid://b4fmsqddavqcr" path="res://MapGenerated/MapChunks/intersection.tscn" id="2_6g36d"]
+[ext_resource type="PackedScene" uid="uid://40172xut7knl" path="res://MapGenerated/MapChunks/vertical_street.tscn" id="3_o416a"]
+[ext_resource type="PackedScene" uid="uid://b68113ygk7vky" path="res://MapGenerated/MapChunks/horizontal_street.tscn" id="4_80bgv"]
+[ext_resource type="PackedScene" uid="uid://dp775vprvd2jy" path="res://MapGenerated/MapChunks/brewing_station_map.tscn" id="5_6g36d"]
+[ext_resource type="PackedScene" uid="uid://qpxxhin2le7o" path="res://MapGenerated/MapChunks/curve_street.tscn" id="5_s72k4"]
+[ext_resource type="PackedScene" uid="uid://cc4bm622x1ef1" path="res://MapGenerated/MapChunks/bar_vertical.tscn" id="6_80bgv"]
+[ext_resource type="PackedScene" uid="uid://eqyvd3po12hb" path="res://MapGenerated/MapChunks/t_cross_street.tscn" id="6_j0ln1"]
+[ext_resource type="PackedScene" uid="uid://gt1yay767kq5" path="res://MapGenerated/MapChunks/bar_horizontal.tscn" id="7_3uksn"]
+[ext_resource type="PackedScene" uid="uid://cs001w768rswq" path="res://MapGenerated/MapChunks/dead_end.tscn" id="7_wqlv1"]
+[ext_resource type="PackedScene" uid="uid://dtgc8qc5a5gwq" path="res://MapGenerated/MapChunks/empty.tscn" id="11_j0ln1"]
+
+[node name="Map_New" type="Node2D" unique_id=1676787412]
+script = ExtResource("1_kw6vf")
+chunk_scenes = {
+"BAR_H": ExtResource("7_3uksn"),
+"BAR_V": ExtResource("6_80bgv"),
+"BREW": ExtResource("5_6g36d"),
+"CURVE": ExtResource("5_s72k4"),
+"DEAD_END": ExtResource("7_wqlv1"),
+"EMPTY": ExtResource("11_j0ln1"),
+"H": ExtResource("4_80bgv"),
+"I": ExtResource("2_6g36d"),
+"T_CROSS": ExtResource("6_j0ln1"),
+"V": ExtResource("3_o416a")
+}

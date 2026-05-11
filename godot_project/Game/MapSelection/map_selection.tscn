@@ -1,0 +1,82 @@
+[gd_scene format=3 uid="uid://b6yn0blpucxcl"]
+
+[ext_resource type="Texture2D" uid="uid://by4woywdil45" path="res://Game/TitleScreenPictures/TitlescreenNew3Buttons.png" id="1_06jrk"]
+[ext_resource type="Script" uid="uid://cr37yi0vn167x" path="res://Game/MapSelection/map_selection.gd" id="1_evfsq"]
+[ext_resource type="Texture2D" uid="uid://bhlmn2eui441a" path="res://Game/MapSelection/Sprites/legacy_map.png" id="2_235ck"]
+[ext_resource type="FontFile" uid="uid://b8thexumc017h" path="res://Game/segoesc.ttf" id="3_evfsq"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_f1dlv"]
+font_size = 64
+
+[node name="MapSelection" type="Control" unique_id=299207110]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_evfsq")
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=281906953]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("1_06jrk")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1144970063]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 40.0
+offset_right = 970.0
+offset_bottom = 632.0
+color = Color(0.011764706, 0.011764706, 0.011764706, 0.8784314)
+
+[node name="Choose" type="Label" parent="." unique_id=1241427289]
+layout_mode = 0
+offset_left = 280.0
+offset_top = 83.0
+offset_right = 779.0
+offset_bottom = 186.0
+theme_override_fonts/font = ExtResource("3_evfsq")
+text = "Choose the Map"
+label_settings = SubResource("LabelSettings_f1dlv")
+
+[node name="LegacyMap" type="Button" parent="." unique_id=1133238168]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 291.0
+offset_right = 1178.0
+offset_bottom = 1071.0
+scale = Vector2(0.3, 0.3)
+size_flags_horizontal = 0
+size_flags_vertical = 4
+icon = ExtResource("2_235ck")
+
+[node name="GeneratedMap" type="Button" parent="." unique_id=1353931837]
+layout_mode = 0
+offset_left = 736.0
+offset_top = 392.0
+offset_right = 779.0
+offset_bottom = 423.0
+text = "New"
+
+[node name="Label" type="Label" parent="." unique_id=1863648390]
+layout_mode = 0
+offset_left = 266.0
+offset_top = 247.0
+offset_right = 357.0
+offset_bottom = 270.0
+theme_override_fonts/font = ExtResource("3_evfsq")
+text = "Legacy Map"
+
+[node name="Label2" type="Label" parent="." unique_id=1783030377]
+layout_mode = 0
+offset_left = 698.0
+offset_top = 248.0
+offset_right = 819.0
+offset_bottom = 271.0
+theme_override_fonts/font = ExtResource("3_evfsq")
+text = "Generated Map"
+
+[connection signal="pressed" from="LegacyMap" to="." method="_on_legacy_map_pressed"]
+[connection signal="pressed" from="GeneratedMap" to="." method="_on_generated_map_pressed"]

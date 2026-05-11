@@ -10,6 +10,7 @@ script = ExtResource("1_pel21")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1990514737]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=766782013]
+scale = Vector2(1.2, 1.2)
 shape = SubResource("CircleShape2D_3bsdh")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -15,13 +15,15 @@ var icon_yeast = preload("res://Collectible/Sprites/yeast.png")
 signal beer_level_changed(new_value)
 
 # --- PHYSICS CONFIGURATION ---
-@export var engine_power = 150.0        
-@export var max_speed = 320.0          
-@export var max_speed_reverse = 110.0 
-@export var steering_angle_limit = 42.0 
-@export var friction = 0.993           
+@export var engine_power = 150.0 
+@export var max_speed = 320.0
+@export var max_speed_reverse = 110.0
+@export var steering_angle_limit = 42.0
+@export var friction = 0.993
 @export var braking_force = 2.5
-@export var drift_braking = 0.985       
+@export var drift_braking = 0.985
+@export var crash_threshold = 180.0
+@export var traction_slow_speed = 110.0
 
 var speed_modifier = 1.0  # 1.0 = Normal, 0.4 = Grass
 var crash_cooldown = 0.0 
@@ -40,6 +42,9 @@ var beer_visual: AnimatedSprite2D
 @export var arrow_min_distance = 40.0
 @export var arrow_size = 22.0      
 var current_arrow_color = Color.WHITE
+
+# --- BAR ROTATION ---
+var target_bar: Node2D = null
 
 func _ready():
 	await get_tree().process_frame
@@ -71,25 +76,27 @@ func _physics_process(delta):
 	var weight_factor = remap(beer_level, 0, max_beer, 1.0, 1.3)
 	var speed = velocity.length()
 
+	var forward_dir = Vector2.RIGHT.rotated(rotation)
+
 	# Steering
 	if speed > 5 or move_input != 0:
-		var dir = -1.0 if velocity.dot(transform.x) < -5 else 1.0
+		var dir = -1.0 if velocity.dot(forward_dir) < -5 else 1.0
 		var steer_speed_mod = clamp(speed / max_speed, 0.5, 0.9) / weight_factor
 		rotation += steer_input * deg_to_rad(steering_angle_limit * 4.0) * delta * dir * steer_speed_mod
 
 	# Acceleration
 	if move_input > 0:
-		velocity += transform.x * (engine_power * speed_modifier / weight_factor) * delta
+		velocity += forward_dir * (engine_power * speed_modifier / weight_factor) * delta
 	elif move_input < 0:
-		if velocity.dot(transform.x) > 5:
-			velocity += transform.x * -engine_power * (braking_force / weight_factor) * delta 
+		if velocity.dot(forward_dir) > 5:
+			velocity += forward_dir * -engine_power * (braking_force / weight_factor) * delta 
 		else:
-			velocity += transform.x * -engine_power * 0.7 * speed_modifier * delta 
+			velocity += forward_dir * -engine_power * 0.7 * speed_modifier * delta 
 
 	velocity *= friction 
 
 	# Drift & Traction
-	var forward_vel = transform.x * velocity.dot(transform.x)
+	var forward_vel = forward_dir * velocity.dot(forward_dir)
 	var steering_intensity = abs(steer_input)
 	var current_traction = 0.35 
 	
@@ -97,7 +104,7 @@ func _physics_process(delta):
 		current_traction = 0.03 / weight_factor
 		velocity *= drift_braking
 	
-	if speed < 110: current_traction = 0.8 
+	if speed < traction_slow_speed: current_traction = 0.8
 	velocity = lerp(velocity, forward_vel, current_traction)
 
 	# Speed Limit
@@ -118,7 +125,7 @@ func _physics_process(delta):
 			var slide_vel = velocity.slide(collision.get_normal())
 			velocity = slide_vel.normalized() * (speed_before * 0.8)
 
-	if collided and speed_before > 180:
+	if collided and speed_before > crash_threshold:
 		SoundManager.play_crash_sound()
 		if has_filled_this_round and beer_level > 0:
 			apply_crash_logic()
@@ -222,18 +229,22 @@ func _get_target_positions() -> Array:
 		if station: targets.append(station.global_position)
 	else:
 		current_arrow_color = Color.GREEN
-		var bar = get_tree().get_first_node_in_group("bar")
-		if bar: targets.append(bar.global_position)
+		if target_bar != null and is_instance_valid(target_bar): 
+			targets.append(target_bar.global_position)
+		else:
+			var bar = get_tree().get_first_node_in_group("bar")
+			if bar: targets.append(bar.global_position)
 	return targets
 
 func add_beer(amount):
 	is_refilling = true
 	beer_level = clamp(beer_level + amount, 0, max_beer)
 	beer_level_changed.emit(beer_level)
-	if beer_level >= max_beer: 
+	if beer_level >= max_beer and not has_filled_this_round:
 		is_refilling = false
 		has_filled_this_round = true
 		crash_counter = 0
+		_pick_random_bar()
 
 func start_unloading():
 	if beer_level > 0 and has_filled_this_round: is_unloading = true
@@ -253,3 +264,22 @@ func process_unloading(delta):
 
 func unload_beer(_amount = 0):
 	start_unloading()
+	
+func _pick_random_bar():
+	var all_bars = get_tree().get_nodes_in_group("bar")
+	if all_bars.size() > 0:
+		var new_bar = all_bars.pick_random()
+		
+		while all_bars.size() > 1 and new_bar == target_bar:
+			new_bar = all_bars.pick_random()
+			
+		target_bar = new_bar
+
+func adapt_to_map_scale(scale_factor: float) -> void:
+	self.scale = Vector2(scale_factor, scale_factor)
+	engine_power *= scale_factor
+	max_speed *= scale_factor
+	max_speed_reverse *= scale_factor
+	braking_force *= scale_factor
+	crash_threshold *= scale_factor
+	traction_slow_speed *= scale_factor
