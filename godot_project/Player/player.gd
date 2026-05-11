@@ -95,8 +95,8 @@ func _physics_process(delta):
 	# --- ENGINE SOUND DYNAMICS ---
 	if engine_audio_player and engine_audio_player.playing:
 		# Calculate pitch based on speed ratio (0.0 to 1.0)
-		var current_max = max_speed * speed_modifier
-		var speed_ratio = clamp(speed / current_max, 0.0, 1.0)
+		var current_max_speed = max_speed * speed_modifier
+		var speed_ratio = clamp(speed / current_max_speed, 0.0, 1.0)
 		
 		# Base pitch is 0.8 (idle), max pitch is 2.0 (top speed)
 		var target_pitch = 0.8 + (speed_ratio * 1.2)
